@@ -4,9 +4,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Auto Test")
+@Autonomous(name = "Park in Warehouse")
 
-public class AutoTest extends LinearOpMode {
+public class ParkInWarehouse extends LinearOpMode {
     Wheels wheels;
 
 
@@ -16,7 +16,7 @@ public class AutoTest extends LinearOpMode {
 
         waitForStart();
 
-        wheels.left(49.09, wheels.driveSpeed);
+        wheels.forwards(30, wheels.driveSpeed);
 
     }
 }

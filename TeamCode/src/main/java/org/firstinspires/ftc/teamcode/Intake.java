@@ -19,50 +19,19 @@ public class Intake {
 
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
-        beaterBar = hardwareMap.get(DcMotorEx.class, "bb");
-        flywheelMotor = hardwareMap.get(DcMotorEx.class, "lm");
-        pushServo = hardwareMap.servo.get("ps");
+        flywheelMotor = hardwareMap.get(DcMotorEx.class, "fw");
     }
 
     public void intake(double vel) {
         beaterBar.setVelocity(vel * 500);
     }
 
-    public void flywheel(boolean on) {
+    public void flywheel(long time, double power) {
         final double velocity = flywheelMotor.getVelocity();
-        if (velocity < flywheelVelocity + 20 && velocity > flywheelVelocity - 20) {
-            flywheelAtSpeed = true;
-            telemetry.addLine("Flywheel is at speed");
-        } else {
-            flywheelAtSpeed = false;
-            telemetry.addLine("Flywheel is not at speed");
-        }
-        telemetry.update();
+        flywheelMotor.setVelocity(power);
+        time = time * 1000;
+        sleep(time);
 
-
-        if (on) {
-            flywheelMotor.setVelocity(flywheelVelocity);
-            telemetry.addLine(String.valueOf(flywheelMotor.getVelocity()));
-        } else {
-            flywheelMotor.setVelocity(0);
-        }
-    }
-
-    public void push(boolean on) {
-        if (on){
-            pushServo.setPosition(1);
-        }
-        else {
-            pushServo.setPosition(0);
-
-        }
-    }
-
-    public void autoPush() {
-        pushServo.setPosition(1);
-        sleep(500);
-        pushServo.setPosition(0);
-        sleep(500);
     }
 
     public final void sleep(long milliseconds) {
@@ -72,5 +41,7 @@ public class Intake {
             Thread.currentThread().interrupt();
         }
     }
+
+    public double flywheelSpeed = 0.6;
 
 }

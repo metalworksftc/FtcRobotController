@@ -8,20 +8,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
     private Arm arm;
-    Intake intake;
+    OldIntake intake;
 
     @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
          arm = new Arm(hardwareMap,telemetry);
-        intake = new Intake(hardwareMap,telemetry);
+        intake = new OldIntake(hardwareMap,telemetry);
         intake.pushServo.setPosition(0);
     }
 
     @Override
     public void loop() {
 
-        intake.intake(gamepad2.left_trigger);
+        intake.oldIntake(gamepad2.left_trigger);
         intake.flywheel(gamepad2.right_bumper);
 //        intake.push(gamepad2.left_trigger);
 
