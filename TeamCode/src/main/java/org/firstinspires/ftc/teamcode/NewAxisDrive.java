@@ -9,15 +9,23 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class NewAxisDrive extends OpMode {
     Wheels wheels;
 
-    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor;
+    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor, flywheelMotor;
 
     @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
+        flywheelMotor = hardwareMap.dcMotor.get("fw");
     }
 
     @Override
     public void loop() {
+
+        if (gamepad2.left_bumper) {
+            flywheelMotor.setPower(0.6);
+        }
+        else {
+            flywheelMotor.setPower(0);
+        }
 
         if (gamepad1.left_bumper) {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
