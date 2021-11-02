@@ -60,8 +60,13 @@ public class Camera {
         List<Recognition> updatedRecognitions = null;
 
         if (linearOpMode.opModeIsActive()) {
-            while (linearOpMode.opModeIsActive()) {
+            long targetTime = System.currentTimeMillis() + 3750;
+            while (linearOpMode.opModeIsActive() &&
+            System.currentTimeMillis() < targetTime
+                    && (updatedRecognitions == null || updatedRecognitions.size() == 0)) {
+
                 if (tfod != null) {
+
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -82,6 +87,9 @@ public class Camera {
                     }
                 }
             }
+        }
+        if (updatedRecognitions == null) {
+            return "No Ducks";
         }
         return updatedRecognitions.get(0).getLabel();
     }
