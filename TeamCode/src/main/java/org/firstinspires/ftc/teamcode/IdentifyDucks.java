@@ -13,15 +13,17 @@ public class IdentifyDucks extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        wheels = new Wheels(hardwareMap, telemetry);
-        intake = new Intake(hardwareMap,telemetry);
+     //   wheels = new Wheels(hardwareMap, telemetry);
+     //   intake = new Intake(hardwareMap,telemetry);
         camera = new Camera(hardwareMap, telemetry, this);
 
         waitForStart();
 
-        wheels.forwards(10, wheels.driveSpeed);
+      //  wheels.forwards(10, wheels.driveSpeed);
         String ducks = camera.seeDucks();
         telemetry.addLine(ducks);
+        telemetry.update();
+        sleep(5000);
 
     }
 }
