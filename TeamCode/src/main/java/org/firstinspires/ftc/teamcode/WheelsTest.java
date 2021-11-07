@@ -26,16 +26,16 @@ public class WheelsTest extends OpMode {
             wheels.leftFrontMotor.setPower(0);
         }
         if (gamepad1.b) {
-            wheels.leftBackMotor.setPower(.5);
-        }
-        else {
-            wheels.leftBackMotor.setPower(0);
-        }
-        if (gamepad1.x) {
             wheels.rightFrontMotor.setPower(.5);
         }
         else {
             wheels.rightFrontMotor.setPower(0);
+        }
+        if (gamepad1.x) {
+            wheels.leftBackMotor.setPower(.5);
+        }
+        else {
+            wheels.leftBackMotor.setPower(0);
         }
         if (gamepad1.y) {
             wheels.rightBackMotor.setPower(.5);
