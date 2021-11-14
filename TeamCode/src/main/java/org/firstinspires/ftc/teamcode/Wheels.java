@@ -105,7 +105,7 @@ public class Wheels {
 
     public void forwardCounts(double distance, double power) {
 
-        int target = leftFrontMotor.getCurrentPosition() - (int) (distance);
+        int target = leftFrontMotor.getCurrentPosition() + (int) (distance);
         driveCartesian(0, -power, 0);
 
         telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
