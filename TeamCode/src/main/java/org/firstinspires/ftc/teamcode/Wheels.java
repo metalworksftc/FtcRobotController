@@ -105,14 +105,14 @@ public class Wheels {
 
     public void forwardCounts(double distance, double power) {
 
-        int target = leftBackMotor.getCurrentPosition() + (int) (distance);
+        int target = leftFrontMotor.getCurrentPosition() - (int) (distance);
         driveCartesian(0, -power, 0);
 
-        telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.update();
 
-        while (leftBackMotor.getCurrentPosition() < target) {
-            telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+        while (leftFrontMotor.getCurrentPosition() < target) {
+            telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Forward");
             telemetry.update();
         }

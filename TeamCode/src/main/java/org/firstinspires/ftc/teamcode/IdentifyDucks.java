@@ -31,16 +31,14 @@ public class IdentifyDucks extends LinearOpMode {
         telemetry.addLine(String.valueOf(camera.Left));
         telemetry.update();
 
-        if (camera.level == 0) {
-            duckPosition = 1;
-        } else if (camera.Left > 750) {
-                duckPosition = 2;
-                telemetry.addLine("Sees duck on right");
-            } else if (camera.Left < 750) {
+        if (camera.Left > 750) {
                 duckPosition = 3;
+                telemetry.addLine("Sees duck on right");
+            } else if (camera.Left < 750 && camera.Left > 1) {
+                duckPosition = 1;
                 telemetry.addLine("Sees duck on left");
             } else {
-                duckPosition = 1;
+                duckPosition = 2;
             }
 
         telemetry.update();
