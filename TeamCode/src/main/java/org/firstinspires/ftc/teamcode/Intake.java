@@ -22,16 +22,20 @@ public class Intake {
         flywheelMotor = hardwareMap.get(DcMotorEx.class, "fw");
     }
 
-    public void intake(double vel) {
-        beaterBar.setVelocity(vel * 500);
-    }
+//    public void intake(double vel) {
+//        beaterBar.setVelocity(vel * 500);
+//    }
+//
+//    public void flywheel(long time, double power) {
+//        final double velocity = flywheelMotor.getVelocity();
+//        flywheelMotor.setVelocity(power);
+//        time = time * 1000;
+//        sleep(time);
+//
+//    }
 
-    public void flywheel(long time, double power) {
-        final double velocity = flywheelMotor.getVelocity();
-        flywheelMotor.setVelocity(power);
-        time = time * 1000;
-        sleep(time);
-
+    public void spin(long milliseconds) {
+        flywheelMotor.setPower(0.6);
     }
 
     public final void sleep(long milliseconds) {
