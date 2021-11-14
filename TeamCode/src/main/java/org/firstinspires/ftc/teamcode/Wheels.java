@@ -99,11 +99,11 @@ public class Wheels {
     }
 
     public void forwards(double distance, double power) {
-        forwardCounts(distance*COUNTS_PER_INCH, power);
+        forwardsCounts(distance*COUNTS_PER_INCH, power);
 
     }
 
-    public void forwardCounts(double distance, double power) {
+    public void forwardsCounts(double distance, double power) {
 
         int target = leftFrontMotor.getCurrentPosition() + (int) (distance);
         driveCartesian(0, -power, 0);
@@ -259,7 +259,7 @@ public class Wheels {
             e.printStackTrace();
         }
     }
-    public double driveSpeed = 0.5;
+    public double driveSpeed = 0.4;
 
 
 

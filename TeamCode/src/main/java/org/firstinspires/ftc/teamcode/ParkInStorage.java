@@ -17,7 +17,7 @@ public class ParkInStorage extends LinearOpMode {
         waitForStart();
 
         wheels.forwards(30, wheels.driveSpeed);
-        wheels.absoluteTurnPower(-90,wheels.driveSpeed);
+        wheels.absoluteTurnPower(90,wheels.driveSpeed);
         wheels.forwards(30,wheels.driveSpeed);
 
     }
