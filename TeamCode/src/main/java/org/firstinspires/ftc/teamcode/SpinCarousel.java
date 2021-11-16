@@ -19,7 +19,6 @@ public class SpinCarousel extends LinearOpMode {
 
         wheels.forwards(10, wheels.driveSpeed);
         wheels.left(20,wheels.driveSpeed);
-        intake.flywheel(10, intake.flywheelSpeed);
 
     }
 }

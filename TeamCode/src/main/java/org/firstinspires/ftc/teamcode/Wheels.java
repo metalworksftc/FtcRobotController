@@ -259,7 +259,8 @@ public class Wheels {
             e.printStackTrace();
         }
     }
-    public double driveSpeed = 0.4;
+    public double driveSpeed = 0.5;
+    public double turnSpeed = 0.35;
 
 
 
