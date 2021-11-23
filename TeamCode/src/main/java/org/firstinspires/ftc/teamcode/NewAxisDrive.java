@@ -8,17 +8,23 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class NewAxisDrive extends OpMode {
     Wheels wheels;
+    Intake intake;
+//    private Arm arm;
 
-    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor, flywheelMotor;
+    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor, flywheelMotor, intakeMotor, armMotor;
 
     @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap,telemetry);
         flywheelMotor = hardwareMap.dcMotor.get("fw");
+//        arm = new Arm(hardwareMap, telemetry);
     }
 
     @Override
     public void loop() {
+
+//        arm.swin/*/g(-gamepad2.right_stick_y*0.75);
 
         if (gamepad2.left_bumper) {
             flywheelMotor.setPower(0.6);
@@ -38,6 +44,9 @@ public class NewAxisDrive extends OpMode {
                 wheels.driveCartesian(gamepad1.left_stick_x*0.5, gamepad1.left_stick_y*0.5, gamepad1.right_stick_x*0.5);
             }
         }
-    }
+        intake.armMotor(gamepad2.left_stick_y);
+        intake.intakeMotor(gamepad2. right_stick_y * 0.5);
 
+
+    }
 }

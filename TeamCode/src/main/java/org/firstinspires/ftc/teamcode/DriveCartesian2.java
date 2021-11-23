@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
+@Disabled
 @TeleOp(name = "DriveCartesion2")
-
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
-    private Arm arm;
+//    private Arm arm;
     OldIntake intake;
 
-    @Override
+@Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
-         arm = new Arm(hardwareMap,telemetry);
+//         arm = new Arm(hardwareMap,telemetry);
         intake = new OldIntake(hardwareMap,telemetry);
         intake.pushServo.setPosition(0);
     }
@@ -25,8 +25,8 @@ public class DriveCartesian2 extends OpMode {
         intake.flywheel(gamepad2.right_bumper);
 //        intake.push(gamepad2.left_trigger);
 
-        arm.setFingerPosition(gamepad2.right_trigger);
-        arm.swing(-gamepad2.right_stick_y*0.75);
+//        arm.setFingerPosition(gamepad2.right_trigger);
+//        arm.swing(-gamepad2.right_stick_y*0.75);
 
         if (intake.flywheelAtSpeed){
             intake.push(gamepad2.left_bumper);

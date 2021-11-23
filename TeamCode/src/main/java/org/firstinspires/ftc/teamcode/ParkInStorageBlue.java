@@ -4,9 +4,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Park in Storage")
+@Autonomous(name = "Park in Storage Other Side")
 
-public class ParkInStorage extends LinearOpMode {
+public class ParkInStorageBlue extends LinearOpMode {
     Wheels wheels;
 
 
@@ -16,9 +16,9 @@ public class ParkInStorage extends LinearOpMode {
 
         waitForStart();
 
-        wheels.forwards(16, wheels.driveSpeed);
+        wheels.forwards(17, wheels.driveSpeed);
         wheels.sleep(1000);
-        wheels.absoluteTurnPower(90, wheels.turnSpeed);
+        wheels.absoluteTurnPower(-90, wheels.turnSpeed);
         wheels.forwards(15, wheels.driveSpeed);
 
     }

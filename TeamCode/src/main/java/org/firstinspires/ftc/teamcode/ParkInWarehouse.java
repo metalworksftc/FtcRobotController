@@ -16,7 +16,7 @@ public class ParkInWarehouse extends LinearOpMode {
 
         waitForStart();
 
-        wheels.forwards(30, wheels.driveSpeed);
+        wheels.forwards(60, wheels.driveSpeed);
 
     }
 }

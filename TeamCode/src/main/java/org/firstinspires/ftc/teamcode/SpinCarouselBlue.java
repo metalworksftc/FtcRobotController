@@ -4,9 +4,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Spin Carousel Red")
+@Autonomous(name = "Spin Carousel Blue")
 
-public class SpinCarousel extends LinearOpMode {
+public class SpinCarouselBlue extends LinearOpMode {
     Wheels wheels;
     Intake intake;
 
@@ -17,9 +17,10 @@ public class SpinCarousel extends LinearOpMode {
 
         waitForStart();
 
-        wheels.backwards(10, wheels.driveSpeed);
-        wheels.absoluteTurnPower(90, wheels.driveSpeed);
-        wheels.forwards(20,wheels.driveSpeed);
-
+        wheels.forwards(10, .3);
+        intake.spin(1500);
+        wheels.forwards(2,0.25);
+        intake.spin(1500);
+        wheels.left(25, wheels.driveSpeed);
     }
 }
