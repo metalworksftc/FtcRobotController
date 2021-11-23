@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Intake {
-    DcMotorEx beaterBar, conveyorBelt, flywheelMotor;
+    DcMotorEx beaterBar, conveyorBelt, flywheelMotor, intakeMotor, armMotor;
     Servo pushServo;
     Telemetry telemetry;
     double flywheelVelocity = -1175;
@@ -20,6 +20,12 @@ public class Intake {
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
         flywheelMotor = hardwareMap.get(DcMotorEx.class, "fw");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "im");
+        armMotor = hardwareMap.get(DcMotorEx.class, "am");
+    }
+
+    public void intake(double vel) {
+        beaterBar.setVelocity(vel * 500);
     }
 
 //    public void intake(double vel) {
@@ -34,8 +40,18 @@ public class Intake {
 //
 //    }
 
+    public void armMotor(double power) {
+        armMotor.setPower(power);
+    }
+
+    public void intakeMotor(double power) {
+        intakeMotor.setPower(power);
+    }
+
+
     public void spin(long milliseconds) {
-        flywheelMotor.setPower(0.6);
+        flywheelMotor.setPower(0.5);
+        sleep(milliseconds);
     }
 
     public final void sleep(long milliseconds) {
@@ -46,6 +62,6 @@ public class Intake {
         }
     }
 
-    public double flywheelSpeed = 0.6;
+    public double flywheelSpeed = 0.5;
 
 }
