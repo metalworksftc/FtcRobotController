@@ -16,7 +16,7 @@ public class AutoTest extends LinearOpMode {
 
         waitForStart();
 
-        wheels.left(49.09, wheels.driveSpeed);
+        wheels.forwardsCounts(10, wheels.driveSpeed);
 
     }
 }

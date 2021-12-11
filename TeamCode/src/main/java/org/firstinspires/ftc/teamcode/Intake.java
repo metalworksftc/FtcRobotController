@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -22,6 +23,7 @@ public class Intake {
         flywheelMotor = hardwareMap.get(DcMotorEx.class, "fw");
         intakeMotor = hardwareMap.get(DcMotorEx.class, "im");
         armMotor = hardwareMap.get(DcMotorEx.class, "am");
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void intake(double vel) {

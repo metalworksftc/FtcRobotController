@@ -26,12 +26,9 @@ public class NewAxisDrive extends OpMode {
 
 //        arm.swin/*/g(-gamepad2.right_stick_y*0.75);
 
-        if (gamepad2.left_bumper) {
-            flywheelMotor.setPower(0.6);
-        }
-        else {
-            flywheelMotor.setPower(0);
-        }
+        flywheelMotor.setPower(gamepad2.right_trigger * -0.5);
+        flywheelMotor.setPower(gamepad2.left_trigger * 0.5);
+
 
         if (gamepad1.left_bumper) {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
@@ -46,7 +43,5 @@ public class NewAxisDrive extends OpMode {
         }
         intake.armMotor(gamepad2.left_stick_y);
         intake.intakeMotor(gamepad2. right_stick_y * 0.5);
-
-
     }
 }
