@@ -86,12 +86,12 @@ public class Wheels {
 
     public void backwardsCount (double distance, double power) {
 
-        int target = leftFrontMotor.getCurrentPosition() - (int)  distance;
+        int target = rightFrontMotor.getCurrentPosition() + (int)  distance;
         driveCartesian(0, power, 0);
 
-        while (leftFrontMotor.getCurrentPosition() < target) {
+        while (rightFrontMotor.getCurrentPosition() > target) {
             telemetry.addLine(String.valueOf(System.currentTimeMillis()));
-            telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Backwards");
             telemetry.update();
         }
@@ -105,14 +105,14 @@ public class Wheels {
 
     public void forwardsCounts(double distance, double power) {
 
-        int target = leftFrontMotor.getCurrentPosition() + (int) (distance);
+        int target = rightFrontMotor.getCurrentPosition() + (int) (distance);
         driveCartesian(0, -power, 0);
 
-        telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.update();
 
-        while (leftFrontMotor.getCurrentPosition() < target) {
-            telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
+        while (rightFrontMotor.getCurrentPosition() < target) {
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Forward");
             telemetry.update();
         }
@@ -129,14 +129,14 @@ public class Wheels {
         float heading = getHeading();
 //        sleep(2000);
 
-        int target = leftBackMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
+        int target = rightFrontMotor.getCurrentPosition() + (int) (Strafe_COUNTS_PER_INCH * distance);
         driveCartesian(power, 0, 0);
 
-        telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.addLine("Position " + getHeading());
         telemetry.update();
 
-        while (leftBackMotor.getCurrentPosition() > target) {
+        while (rightFrontMotor.getCurrentPosition() < target) {
 //            if (getHeading() < heading){
 //                //tweak right
 //                driveCartesian(-power,0 ,0.1);
@@ -150,7 +150,7 @@ public class Wheels {
 //                driveCartesian(-power,0,0);
 //            }
 
-            telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Right");
             telemetry.update();
         }
@@ -163,14 +163,14 @@ public class Wheels {
         float heading = getHeading();
 //        sleep(2000);
 
-        int target = leftFrontMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
+        int target = rightFrontMotor.getCurrentPosition() + (int) (Strafe_COUNTS_PER_INCH * distance);
         driveCartesian(-power, 0, 0);
 
-        telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.addLine("Position " + getHeading());
         telemetry.update();
 
-        while (leftFrontMotor.getCurrentPosition() > target) {
+        while (rightFrontMotor.getCurrentPosition() < target) {
 //            if (getHeading() > heading){
 //                //tweak left
 //                driveCartesian(power,0 ,-0.1);
@@ -184,7 +184,7 @@ public class Wheels {
 //                driveCartesian(power,0,0);
 //            }
 //
-            telemetry.addLine("Driving: " + leftFrontMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine("Position" + getHeading());
             telemetry.addLine(" Left");
             telemetry.update();
