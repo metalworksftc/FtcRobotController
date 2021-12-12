@@ -17,17 +17,17 @@ public class NewAxisDrive extends OpMode {
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
         intake = new Intake(hardwareMap,telemetry);
-        flywheelMotor = hardwareMap.dcMotor.get("fw");
 //        arm = new Arm(hardwareMap, telemetry);
     }
 
     @Override
     public void loop() {
 
-//        arm.swin/*/g(-gamepad2.right_stick_y*0.75);
 
-        flywheelMotor.setPower(gamepad2.right_trigger * -0.5);
-        flywheelMotor.setPower(gamepad2.left_trigger * 0.5);
+        if (gamepad2.right_bumper) {
+            intake.flywheelMotor.setPower(gamepad2.left_trigger * -0.5);
+        } else
+            intake.flywheelMotor.setPower(gamepad2.left_trigger * 0.5);
 
 
         if (gamepad1.left_bumper) {
@@ -39,6 +39,11 @@ public class NewAxisDrive extends OpMode {
             }
             else {
                 wheels.driveCartesian(gamepad1.left_stick_x*0.5, gamepad1.left_stick_y*0.5, gamepad1.right_stick_x*0.5);
+                telemetry.addLine(String.valueOf(wheels.leftFrontMotor.getCurrentPosition()));
+                telemetry.addLine(String.valueOf(wheels.rightFrontMotor.getCurrentPosition()));
+                telemetry.addLine(String.valueOf(wheels.leftBackMotor.getCurrentPosition()));
+                telemetry.addLine(String.valueOf(wheels.rightBackMotor.getCurrentPosition()));
+                telemetry.update();
             }
         }
         intake.armMotor(gamepad2.left_stick_y);
