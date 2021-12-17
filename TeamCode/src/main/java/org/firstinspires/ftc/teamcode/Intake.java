@@ -42,6 +42,24 @@ public class Intake {
 //
 //    }
 
+    public void up(long time) {
+        armMotor.setPower(0.75);
+        sleep(time);
+        armMotor.setPower(0);
+    }
+
+    public void down(long time) {
+        armMotor.setPower(-0.75);
+        sleep(time);
+        armMotor.setPower(0);
+    }
+
+    public void beaterBar() {
+        beaterBar.setPower(-0.5);
+        sleep(500);
+        beaterBar.setPower(0);
+    }
+
     public void armMotor(double power) {
         armMotor.setPower(power);
     }

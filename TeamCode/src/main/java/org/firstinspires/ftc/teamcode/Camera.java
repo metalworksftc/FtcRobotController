@@ -46,7 +46,7 @@ public class Camera {
     }
     double Left;
 
-    public <label> String seeDucks() {
+    public <label> String findCultMembers() {
         if (tfod != null) {
             tfod.activate();
 
