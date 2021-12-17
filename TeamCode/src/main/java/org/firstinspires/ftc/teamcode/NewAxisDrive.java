@@ -11,7 +11,7 @@ public class NewAxisDrive extends OpMode {
     Intake intake;
 //    private Arm arm;
 
-    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor, flywheelMotor, intakeMotor, armMotor;
+    DcMotor leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor, armMotor;
 
     @Override
     public void init() {
@@ -47,6 +47,17 @@ public class NewAxisDrive extends OpMode {
             }
         }
         intake.armMotor(gamepad2.left_stick_y);
-        intake.intakeMotor(gamepad2. right_stick_y * 0.5);
+
+        if (gamepad2.right_stick_y > 0) {
+            intake.intakeMotor(gamepad2.right_stick_y * -0.5);
+        } else if (gamepad2.right_stick_y < 0) {
+            intake.intakeMotor(gamepad2.right_stick_y * 0.25);
+        } else {
+            intake.intakeMotor(0);
+        }
+
+
+
+
     }
 }
