@@ -44,9 +44,10 @@ public class Camera {
         initTfod();
 
     }
+
     double Left;
 
-    public <label> String findCultMembers() {
+    public <label> int findCultMembers() {
         if (tfod != null) {
             tfod.activate();
 
@@ -56,15 +57,15 @@ public class Camera {
             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 16/9).
-            tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(1, 16.0 / 9.0);
         }
 
-         List<Recognition> updatedRecognitions = null;
+        List<Recognition> updatedRecognitions = null;
 
         if (linearOpMode.opModeIsActive()) {
             long targetTime = System.currentTimeMillis() + 3750;
             while (linearOpMode.opModeIsActive() &&
-            System.currentTimeMillis() < targetTime
+                    System.currentTimeMillis() < targetTime
                     && (updatedRecognitions == null || updatedRecognitions.size() == 0)) {
 
                 if (tfod != null) {
@@ -93,11 +94,31 @@ public class Camera {
                 }
             }
         }
+        String object;
         if (updatedRecognitions == null) {
-            return "No Ducks";
+            object = "No Ducks";
+        } else {
+            object = updatedRecognitions.get(0).getLabel();
         }
-        return updatedRecognitions.get(0).getLabel();
+        // If having trouble here it can recognize anything
+        if (!object.equals("Duck")) {
+            return 3;
+        }
+        int cultMemberPosition;
+
+        if (Left > 750) {
+            cultMemberPosition = 2;
+            telemetry.addLine("Sees cult member on right");
+        } else if (Left < 750 && Left > 1) {
+            cultMemberPosition = 1;
+            telemetry.addLine("Sees cult member on left");
+        } else {
+            cultMemberPosition = 3;
+        }
+        telemetry.update();
+        return cultMemberPosition;
     }
+
 
     private void initVuforia() {
         /*
