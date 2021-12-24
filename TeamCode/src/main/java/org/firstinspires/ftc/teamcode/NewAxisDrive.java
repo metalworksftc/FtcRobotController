@@ -46,14 +46,15 @@ public class NewAxisDrive extends OpMode {
                 telemetry.update();
             }
         }
-        intake.armMotor(gamepad2.left_stick_y);
+
+        intake.intakeMotor(gamepad2.left_stick_y);
 
         if (gamepad2.right_stick_y > 0) {
-            intake.intakeMotor(gamepad2.right_stick_y * -0.5);
+            intake.armMotor(gamepad2.right_stick_y * -0.5);
         } else if (gamepad2.right_stick_y < 0) {
-            intake.intakeMotor(gamepad2.right_stick_y * 0.25);
+            intake.armMotor(gamepad2.right_stick_y * -0.25);
         } else {
-            intake.intakeMotor(0);
+            intake.armMotor(0);
         }
 
 
