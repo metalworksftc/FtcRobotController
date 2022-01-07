@@ -52,7 +52,7 @@ public class NewAxisDrive extends OpMode {
         if (gamepad2.right_stick_y > 0) {
             intake.intakeMotor(gamepad2.right_stick_y * -0.5);
         } else if (gamepad2.right_stick_y < 0) {
-            intake.intakeMotor(gamepad2.right_stick_y * -0.25);
+            intake.intakeMotor(gamepad2.right_stick_y * -0.5);
         } else {
             intake.intakeMotor(0);
         }

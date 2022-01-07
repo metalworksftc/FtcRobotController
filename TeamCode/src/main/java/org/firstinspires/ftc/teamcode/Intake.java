@@ -24,8 +24,8 @@ public class Intake {
         flywheelMotor = hardwareMap.get(DcMotorEx.class, "fw");
         armMotor = hardwareMap.get(DcMotorEx.class, "am");
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor = hardwareMap.get(DcMotorEx.class, "im");
-        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 //    public void intake(double vel) {
@@ -42,9 +42,9 @@ public class Intake {
 //        time = time * 1000;
 //        sleep(time);
 //
-//    }
+//    }s
 
-    public void move (double distance, double power) {
+    public void up (double distance, double power) {
             power = -power;
         int target = armMotor.getCurrentPosition() - (int)  distance;
         telemetry.addLine("Setting Power");
@@ -64,22 +64,41 @@ public class Intake {
         telemetry.update();
     }
 
+    public void down (double distance, double power) {
+        int target = armMotor.getCurrentPosition() + (int)  distance;
+        telemetry.addLine("Setting Power");
+        telemetry.update();
+        sleep(1000);
+        armMotor.setPower(power);
+        telemetry.addLine("Power has been set at " + power);
+        telemetry.update();
 
-    public void up(long time) {
-        intakeMotor.setPower(0.75);
-        sleep(time);
-        intakeMotor.setPower(0);
+        while (armMotor.getCurrentPosition() < target) {
+            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+            telemetry.addLine("Going: " + armMotor.getCurrentPosition() + " of " + target);
+            telemetry.update();
+        }
+        armMotor.setPower(0);
+        telemetry.addLine("Arrived at target");
+        telemetry.update();
     }
 
-    public void down(long time) {
-        intakeMotor.setPower(-0.75);
-        sleep(time);
-        intakeMotor.setPower(0);
-    }
+
+//    public void up(long time) {
+//        intakeMotor.setPower(0.75);
+//        sleep(time);
+//        intakeMotor.setPower(0);
+//    }
+//
+//    public void down(long time) {
+//        intakeMotor.setPower(-0.75);
+//        sleep(time);
+//        intakeMotor.setPower(0);
+//    }
 
     public void beaterBar() {
         intakeMotor.setPower(-0.5);
-        sleep(5000);
+        sleep(1000);
         intakeMotor.setPower(0);
     }
 
