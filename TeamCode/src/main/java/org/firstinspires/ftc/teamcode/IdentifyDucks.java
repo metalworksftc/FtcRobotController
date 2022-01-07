@@ -22,7 +22,7 @@ public class IdentifyDucks extends LinearOpMode {
         intake = new Intake(hardwareMap,telemetry);
         camera = new Camera(hardwareMap, telemetry, this);
         int cultMemberPosition;
-        double move = 0;
+        double distance = 0;
         telemetry.addLine("initialized");
         telemetry.update();
         waitForStart();
@@ -32,18 +32,18 @@ public class IdentifyDucks extends LinearOpMode {
         telemetry.update();
 
         if (cultMember == 1) {
-            move = 150;
+            distance = 150;
         } else if (cultMember == 2) {
-            move = 200;
+            distance = 250;
         } else {
-            move = 250;
+            distance = 1500;
         }
 
         wheels.left(15, wheels.driveSpeed);
-        intake.move(move,0.5);
+        intake.up(distance,0.5);
         wheels.forwards(15, wheels.driveSpeed);
         intake.beaterBar();
-        intake.move(move,-0.5);
+        intake.down(distance ,0.5);
         wheels.backwards(15, wheels.driveSpeed);
         wheels.absoluteTurnPower(-90, wheels.driveSpeed);
         wheels.forwards(60, 0.75);
