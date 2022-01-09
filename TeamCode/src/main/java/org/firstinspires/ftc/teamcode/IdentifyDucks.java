@@ -23,6 +23,7 @@ public class IdentifyDucks extends LinearOpMode {
         camera = new Camera(hardwareMap, telemetry, this);
         int cultMemberPosition;
         double distance = 0;
+        float direction = 0;
         telemetry.addLine("initialized");
         telemetry.update();
         waitForStart();
@@ -32,21 +33,42 @@ public class IdentifyDucks extends LinearOpMode {
         telemetry.update();
 
         if (cultMember == 1) {
-            distance = 150;
-        } else if (cultMember == 2) {
-            distance = 250;
-        } else {
-            distance = 1500;
-        }
 
-        wheels.left(15, wheels.driveSpeed);
-        intake.up(distance,0.5);
-        wheels.forwards(15, wheels.driveSpeed);
-        intake.beaterBar();
-        intake.down(distance ,0.5);
-        wheels.backwards(15, wheels.driveSpeed);
-        wheels.absoluteTurnPower(-90, wheels.driveSpeed);
-        wheels.forwards(60, 0.75);
+            wheels.left(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2100,0.5);
+            wheels.forwards(17, wheels.driveSpeed);
+            intake.beaterBar();
+            intake.down(2100 ,0.5);
+            wheels.backwards(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(-90, wheels.driveSpeed);
+            wheels.forwards(70, 0.75);
+
+        } else if (cultMember == 2) {
+
+            wheels.left(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(180, wheels.driveSpeed);
+            intake.up(300,0.5);
+            wheels.backwards(17, wheels.driveSpeed);
+            intake.beaterBar();
+            intake.down(250 ,0.5);
+            wheels.forwards(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(-90, wheels.driveSpeed);
+            wheels.forwards(70, 0.75);
+
+        } else {
+
+            wheels.left(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(180, wheels.driveSpeed);
+            intake.up(350,0.75);
+            wheels.backwards(17, wheels.driveSpeed);
+            intake.beaterBar();
+            intake.down(240 ,0.5);
+            wheels.forwards(15, wheels.driveSpeed);
+            wheels.absoluteTurnPower(-90, wheels.driveSpeed);
+            wheels.forwards(70, 0.75);
+
+        }
 
 
 
