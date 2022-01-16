@@ -15,6 +15,14 @@ public class AutoTest extends LinearOpMode {
         wheels = new Wheels(hardwareMap, telemetry);
 
         waitForStart();
-        intake.armMotor( 0.5);
+
+        wheels.absoluteTurnPower(-90, wheels.driveSpeed);
+        sleep(500);
+        wheels.absoluteTurnPower(180,wheels.driveSpeed);
+        sleep(500);
+        wheels.absoluteTurnPower(90,wheels.driveSpeed);
+        sleep(500);
+        wheels.absoluteTurnPower(0,wheels.driveSpeed);
+        sleep(500);
     }
 }

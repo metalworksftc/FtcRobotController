@@ -23,11 +23,18 @@ public class Wheels {
 
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
         rightFrontMotor = hardwareMap.dcMotor.get("rfm");
+        rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         leftFrontMotor = hardwareMap.dcMotor.get("lfm");
+        leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         leftBackMotor = hardwareMap.dcMotor.get("lbm");
+        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         rightBackMotor = hardwareMap.dcMotor.get("rbm");
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.telemetry = telemetry;
         BNO055IMU.Parameters parameters2 = new BNO055IMU.Parameters();
         parameters2.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -86,7 +93,7 @@ public class Wheels {
 
     public void backwardsCount (double distance, double power) {
 
-        int target = rightFrontMotor.getCurrentPosition() + (int)  distance;
+        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
         driveCartesian(0, power, 0);
 
         while (rightFrontMotor.getCurrentPosition() > target) {
