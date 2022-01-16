@@ -25,20 +25,19 @@ public class NewAxisDrive extends OpMode {
 
 
         if (gamepad2.right_bumper) {
-            intake.flywheelMotor.setPower(gamepad2.left_trigger * -0.5);
+            intake.flywheelMotor.setPower(gamepad2.left_trigger * -0.4);
         } else
-            intake.flywheelMotor.setPower(gamepad2.left_trigger * 0.5);
-
+            intake.flywheelMotor.setPower(gamepad2.left_trigger * 0.4);
 
         if (gamepad1.left_bumper) {
-            wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x * 0.5f);
         }
         else {
             if (gamepad1.right_bumper) {
-                wheels.driveCartesian(gamepad1.left_stick_x * 1, gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 1);
+                wheels.driveCartesian(gamepad1.left_stick_x * 0.5, gamepad1.left_stick_y * 0.5, gamepad1.right_stick_x * 0.5);
             }
             else {
-                wheels.driveCartesian(gamepad1.left_stick_x*0.5, gamepad1.left_stick_y*0.5, gamepad1.right_stick_x*0.5);
+                wheels.driveCartesian(gamepad1.left_stick_x * 1, gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 0.5);
                 telemetry.addLine(String.valueOf(wheels.leftFrontMotor.getCurrentPosition()));
                 telemetry.addLine(String.valueOf(wheels.rightFrontMotor.getCurrentPosition()));
                 telemetry.addLine(String.valueOf(wheels.leftBackMotor.getCurrentPosition()));
@@ -48,17 +47,7 @@ public class NewAxisDrive extends OpMode {
         }
 
             intake.armMotor(gamepad2.left_stick_y);
-
-        if (gamepad2.right_stick_y > 0) {
-            intake.intakeMotor(gamepad2.right_stick_y * -0.5);
-        } else if (gamepad2.right_stick_y < 0) {
-            intake.intakeMotor(gamepad2.right_stick_y * -0.5);
-        } else {
-            intake.intakeMotor(0);
-        }
-
-
-
+        intake.intakeMotor.setPower(gamepad2.right_stick_y * 0.4);
 
     }
 }

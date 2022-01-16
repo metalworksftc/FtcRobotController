@@ -10,7 +10,7 @@ import java.util.List;
 
 @Autonomous(name = "Identify Ducks")
 
-public class IdentifyDucks extends LinearOpMode {
+public class IdentifyDucks2 extends LinearOpMode {
     Wheels wheels;
     Intake intake;
     Camera camera;
