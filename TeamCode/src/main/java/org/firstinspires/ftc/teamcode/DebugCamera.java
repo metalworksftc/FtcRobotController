@@ -10,20 +10,20 @@ import java.util.List;
 
 @Autonomous(name = "Camera Debug")
 
-public class CameraDebug extends LinearOpMode {
-    Camera camera;
+public class DebugCamera extends LinearOpMode {
+    CameraCube camera;
     List<Recognition> updatedRecognitions = null;
 
     @Override
     public void runOpMode() {
-        camera = new Camera(hardwareMap, telemetry, this);
+        camera = new CameraCube(hardwareMap, telemetry, this);
         int cultMemberPosition;
         long move = 0;
 
         waitForStart();
 
-        int cultMember = camera.findCultMembers();
-        telemetry.addLine(String.valueOf(cultMember));
+        int block = camera.findCube();
+        telemetry.addLine(String.valueOf(block));
         telemetry.update();
         sleep(30000);
 
