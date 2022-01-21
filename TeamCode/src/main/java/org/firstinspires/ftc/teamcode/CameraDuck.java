@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-public class Camera {
+public class CameraDuck {
 
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
@@ -32,7 +32,7 @@ public class Camera {
     private HardwareMap hardwareMap;
     private LinearOpMode linearOpMode;
 
-    public Camera(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode linearOpMode) {
+    public CameraDuck(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode linearOpMode) {
         init(hardwareMap, telemetry, linearOpMode);
     }
 
@@ -118,7 +118,6 @@ public class Camera {
         telemetry.update();
         return cultMemberPosition;
     }
-
 
     private void initVuforia() {
         /*
