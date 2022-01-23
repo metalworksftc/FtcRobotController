@@ -103,7 +103,7 @@ public class Intake {
     }
 
     public void beaterBarOut() {
-        intakeMotor.setPower(0.5);
+        intakeMotor.setPower(0.45);
         sleep(1250);
         intakeMotor.setPower(0);
     }
@@ -118,8 +118,9 @@ public class Intake {
 
 
     public void spin(long milliseconds) {
-        flywheelMotor.setPower(0.5);
+        flywheelMotor.setPower(0.3);
         sleep(milliseconds);
+        flywheelMotor.setPower(0);
     }
 
     public final void sleep(long milliseconds) {

@@ -8,9 +8,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
-@Autonomous(name = "Identify Cube")
+@Autonomous(name = "Identify Cube 2")
 
-public class IdentifyCube extends LinearOpMode {
+public class IdentifyCube2 extends LinearOpMode {
     Wheels wheels;
     Intake intake;
     CameraCube camera;
@@ -35,52 +35,59 @@ public class IdentifyCube extends LinearOpMode {
 
         if (cube == 1) {
 
-            wheels.left(2.75, wheels.driveSpeed);
-            wheels.forwards(10, .45);
+            wheels.left(2, wheels.driveSpeed);
+            wheels.forwards(10, wheels.driveSpeed);
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
-            wheels.forwards(4, wheels.driveSpeed);
-            intake.spin(3000);
+            wheels.forwards(3, wheels.driveSpeed);
+            intake.spin(2500);
             wheels.left(50, wheels.driveSpeed);
             intake.down(180,0.75);
             wheels.backwards(12, wheels.driveSpeed);
             intake.beaterBarOut();
+            wheels.absoluteTurnPower(90,wheels.driveSpeed);
+            intake.down(180,.75);
+            intake.beaterBarOut();
+            wheels.backwards(3, wheels.driveSpeed);
+            wheels.absoluteTurnPower(45, wheels.driveSpeed);
+            intake.up(1650,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
             wheels.forwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
+            wheels.backwards(70, wheels.driveSpeed);
 
         } else if (cube == 2) {
 
-            wheels.left(2.75, wheels.driveSpeed);
-            wheels.forwards(10, .45);
+            wheels.left(2, wheels.driveSpeed);
+            wheels.forwards(10, wheels.driveSpeed);
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
-            wheels.forwards(4, wheels.driveSpeed);
-            intake.spin(3000);
+            wheels.forwards(3, wheels.driveSpeed);
+            intake.spin(2500);
             wheels.left(50, wheels.driveSpeed);
             wheels.backwards(12, wheels.driveSpeed);
             intake.beaterBarOut();
             wheels.forwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
+            wheels.backwards(70, wheels.driveSpeed);
 
         } else {
 
-            wheels.left(2.75, wheels.driveSpeed);
-            wheels.forwards(10, .45);
+            wheels.left(2, wheels.driveSpeed);
+            wheels.forwards(10, wheels.driveSpeed);
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
-            wheels.forwards(4, wheels.driveSpeed);
-            intake.spin(3000);
+            wheels.forwards(3, wheels.driveSpeed);
+            intake.spin(2500);
             wheels.left(50, wheels.driveSpeed);
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
             intake.up(1500,0.75);
             wheels.forwards(12, wheels.driveSpeed);
             intake.beaterBarUp();
-            intake.down(1500, 0.75);
-            wheels.backwards(13, wheels.driveSpeed);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
+            wheels.backwards(70, wheels.driveSpeed);
 
         }
     }
