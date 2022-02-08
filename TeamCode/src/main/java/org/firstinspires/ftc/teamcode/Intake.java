@@ -131,6 +131,15 @@ public class Intake {
         }
     }
 
-    public double flywheelSpeed = 0.5;
+
+    public final  void flywheel(){
+        double flywheelSpeed = 0.5;
+        sleep(100);
+        do {
+            flywheelSpeed += .01;
+        } while (flywheelSpeed <= 1);
+    }
+
+
 
 }
