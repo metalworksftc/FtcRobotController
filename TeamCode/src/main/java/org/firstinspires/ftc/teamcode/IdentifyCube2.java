@@ -35,27 +35,28 @@ public class IdentifyCube2 extends LinearOpMode {
 
         if (cube == 1) {
 
-            wheels.left(2, wheels.driveSpeed);
-            wheels.forwards(10, wheels.driveSpeed);
+            wheels.left(2.75, wheels.driveSpeed);
+            wheels.forwards(10, .45);
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
-            wheels.forwards(3, wheels.driveSpeed);
-            intake.spin(2500);
+            wheels.forwards(4, wheels.driveSpeed);
+            intake.spin(3000);
             wheels.left(50, wheels.driveSpeed);
             intake.down(180,0.75);
             wheels.backwards(12, wheels.driveSpeed);
             intake.beaterBarOut();
             wheels.absoluteTurnPower(90,wheels.driveSpeed);
             intake.down(180,.75);
-            intake.beaterBarOut();
-            wheels.backwards(3, wheels.driveSpeed);
-            wheels.absoluteTurnPower(45, wheels.driveSpeed);
-            intake.up(1650,0.75);
+            wheels.backwards(10, wheels.driveSpeed);
+            intake.beaterBarUp();
+            wheels.forwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
             intake.beaterBarUp();
             intake.down(1000,0.75);
-            wheels.forwards(10, wheels.driveSpeed);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, wheels.driveSpeed);
+            wheels.backwards(85, 0.65);
 
         } else if (cube == 2) {
 
