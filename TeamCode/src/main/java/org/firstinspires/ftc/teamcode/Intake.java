@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Intake {
     DcMotorEx beaterBar, conveyorBelt, flywheelMotor, armMotor, intakeMotor;
-    Servo pushServo;
+    Servo grabServo;
     Telemetry telemetry;
     double flywheelVelocity = -1175;
     public boolean flywheelAtSpeed = false;
@@ -26,6 +26,8 @@ public class Intake {
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor = hardwareMap.get(DcMotorEx.class, "im");
+        grabServo = hardwareMap.get(Servo.class,"gs");
+
     }
 
 //    public void intake(double vel) {
@@ -97,7 +99,7 @@ public class Intake {
 //    }
 
     public void beaterBarUp() {
-        intakeMotor.setPower(-0.35);
+        intakeMotor.setPower(-0.45);
         sleep(1250);
         intakeMotor.setPower(0);
     }
@@ -141,5 +143,17 @@ public class Intake {
     }
 
 
+    public final void servoDown() {
+        grabServo.setPosition(1);
+    }
+    public final void servoUpperCap() {
+        grabServo.setPosition(0.425);
+    }
+    public final void servoLowerCap() {
+        grabServo.setPosition(0.345);
+    }
+    public final void servoStore() {
+        grabServo.setPosition(0);
+    }
 
 }

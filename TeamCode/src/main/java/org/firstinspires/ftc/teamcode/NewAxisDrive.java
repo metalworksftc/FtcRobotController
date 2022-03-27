@@ -18,12 +18,36 @@ public class NewAxisDrive extends OpMode {
         wheels = new Wheels(hardwareMap, telemetry);
         intake = new Intake(hardwareMap,telemetry);
 //        arm = new Arm(hardwareMap, telemetry);
+        intake.servoDown();
     }
 
     double flywheelSpeed = 0.5;
 
     @Override
     public void loop() {
+
+
+        if (gamepad2.dpad_down) {
+            telemetry.addLine("D-Pad Down");
+            intake.servoStore();
+        }
+
+        if (gamepad2.dpad_right) {
+            telemetry.addLine("D-Pad Right");
+            intake.servoDown();
+        }
+
+        if (gamepad2.dpad_left) {
+            telemetry.addLine("D-Pad Left");
+            intake.servoLowerCap();
+        }
+
+        if (gamepad2.dpad_up) {
+            telemetry.addLine("D-Pad Up");
+            intake.servoUpperCap();
+        }
+
+        telemetry.update();
 
 
         if (gamepad2.right_bumper) {
@@ -59,7 +83,7 @@ public class NewAxisDrive extends OpMode {
         }
 
             intake.armMotor(gamepad2.left_stick_y);
-        intake.intakeMotor.setPower(gamepad2.right_stick_y * 0.4);
+        intake.intakeMotor.setPower(gamepad2.right_stick_y * 0.5);
 
 
     }
