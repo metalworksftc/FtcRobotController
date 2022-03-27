@@ -8,9 +8,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
-@Autonomous(name = "Identify Cube")
+@Autonomous(name = "Identify Cube 2 Red")
 
-public class IdentifyCube extends LinearOpMode {
+public class IdentifyCube2Red extends LinearOpMode {
     Wheels wheels;
     Intake intake;
     CameraCube camera;
@@ -42,14 +42,22 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
-            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
             intake.down(180,0.75);
             wheels.backwards(12, wheels.driveSpeed);
             intake.beaterBarUp();
-            wheels.forwards(10, wheels.driveSpeed);
+            wheels.absoluteTurnPower(90,wheels.driveSpeed);
+            intake.down(180,.75);
+            wheels.backwards(30, wheels.driveSpeed);
+            intake.beaterBarUp();
+            wheels.forwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
+            wheels.backwards(85, 0.65);
 
         } else if (cube == 2) {
 
@@ -59,13 +67,18 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
-            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
-            wheels.backwards(12, wheels.driveSpeed);
+            intake.down(180,.75);
+            wheels.backwards(30, wheels.driveSpeed);
             intake.beaterBarUp();
-            wheels.forwards(10, wheels.driveSpeed);
+            wheels.forwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
+            wheels.backwards(85, 0.65);
 
         } else {
 
@@ -75,17 +88,19 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
-            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
             intake.up(1500,0.75);
             wheels.forwards(20, wheels.driveSpeed);
             intake.beaterBarOut();
-            intake.down(1500, 0.75);
+            wheels.backwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
             wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, .75);
-
+            wheels.backwards(85, 0.65);
         }
     }
 }
