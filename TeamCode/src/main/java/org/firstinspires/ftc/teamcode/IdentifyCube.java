@@ -24,6 +24,7 @@ public class IdentifyCube extends LinearOpMode {
         int blockPosition;
         double distance = 0;
         float direction = 0;
+        intake.grabServo.setPosition(1);
         telemetry.addLine("initialized");
         telemetry.update();
         waitForStart();
@@ -41,10 +42,11 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
+            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
             intake.down(180,0.75);
             wheels.backwards(12, wheels.driveSpeed);
-            intake.beaterBarOut();
+            intake.beaterBarUp();
             wheels.forwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
             wheels.backwards(70, .75);
@@ -57,9 +59,10 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
+            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
             wheels.backwards(12, wheels.driveSpeed);
-            intake.beaterBarOut();
+            intake.beaterBarUp();
             wheels.forwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
             wheels.backwards(70, .75);
@@ -72,13 +75,14 @@ public class IdentifyCube extends LinearOpMode {
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(4, wheels.driveSpeed);
             intake.spin(3000);
+            wheels.absoluteTurnPower(180,wheels.driveSpeed);
             wheels.left(50, wheels.driveSpeed);
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
             intake.up(1500,0.75);
-            wheels.forwards(12, wheels.driveSpeed);
-            intake.beaterBarUp();
+            wheels.forwards(8, wheels.driveSpeed);
+            intake.beaterBarOut();
             intake.down(1500, 0.75);
-            wheels.backwards(13, wheels.driveSpeed);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
             wheels.backwards(70, .75);
 

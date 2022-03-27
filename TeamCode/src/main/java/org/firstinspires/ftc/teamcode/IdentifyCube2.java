@@ -24,6 +24,7 @@ public class IdentifyCube2 extends LinearOpMode {
         int blockPosition;
         double distance = 0;
         float direction = 0;
+        intake.servoDown();
         telemetry.addLine("initialized");
         telemetry.update();
         waitForStart();
@@ -44,10 +45,10 @@ public class IdentifyCube2 extends LinearOpMode {
             wheels.left(50, wheels.driveSpeed);
             intake.down(180,0.75);
             wheels.backwards(12, wheels.driveSpeed);
-            intake.beaterBarOut();
+            intake.beaterBarUp();
             wheels.absoluteTurnPower(90,wheels.driveSpeed);
             intake.down(180,.75);
-            wheels.backwards(10, wheels.driveSpeed);
+            wheels.backwards(30, wheels.driveSpeed);
             intake.beaterBarUp();
             wheels.forwards(8, wheels.driveSpeed);
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
@@ -65,13 +66,19 @@ public class IdentifyCube2 extends LinearOpMode {
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(3, wheels.driveSpeed);
-            intake.spin(2500);
+            intake.spin(3000);
             wheels.left(50, wheels.driveSpeed);
-            wheels.backwards(12, wheels.driveSpeed);
+            intake.down(180,.75);
+            wheels.backwards(30, wheels.driveSpeed);
             intake.beaterBarOut();
-            wheels.forwards(10, wheels.driveSpeed);
+            wheels.forwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
+            wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, wheels.driveSpeed);
+            wheels.backwards(85, 0.65);
 
         } else {
 
@@ -80,16 +87,20 @@ public class IdentifyCube2 extends LinearOpMode {
             wheels.left(15, wheels.driveSpeed);
             wheels.absoluteTurnPower(180, wheels.driveSpeed);
             wheels.forwards(3, wheels.driveSpeed);
-            intake.spin(2500);
+            intake.spin(3000);
             wheels.left(50, wheels.driveSpeed);
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
             intake.up(1500,0.75);
-            wheels.forwards(12, wheels.driveSpeed);
+            wheels.forwards(30, wheels.driveSpeed);
             intake.beaterBarUp();
+            wheels.backwards(8, wheels.driveSpeed);
+            wheels.absoluteTurnPower(0, wheels.driveSpeed);
+            intake.up(2250,0.75);
+            intake.beaterBarUp();
+            intake.down(1000,0.75);
             wheels.backwards(10, wheels.driveSpeed);
             wheels.absoluteTurnPower(90, wheels.driveSpeed);
-            wheels.backwards(70, wheels.driveSpeed);
-
+            wheels.backwards(85, 0.65);
         }
     }
 }
