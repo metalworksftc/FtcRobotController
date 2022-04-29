@@ -99,13 +99,13 @@ public class Intake {
 //    }
 
     public void beaterBarUp() {
-        intakeMotor.setPower(-0.45);
+        intakeMotor.setPower(-0.55);
         sleep(1250);
         intakeMotor.setPower(0);
     }
 
     public void beaterBarOut() {
-        intakeMotor.setPower(0.45);
+        intakeMotor.setPower(0.55);
         sleep(1250);
         intakeMotor.setPower(0);
     }
