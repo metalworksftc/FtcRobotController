@@ -96,14 +96,14 @@ public class ConceptVuforiaDriveToTargetWebcam extends LinearOpMode
         this.vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Load the trackable objects from the Assets file, and give them meaningful names
-        VuforiaTrackables targetsPowerPlay = this.vuforia.loadTrackablesFromAsset("PowerPlay");
-        targetsPowerPlay.get(0).setName("Red Audience Wall");
-        targetsPowerPlay.get(1).setName("Red Rear Wall");
-        targetsPowerPlay.get(2).setName("Blue Audience Wall");
-        targetsPowerPlay.get(3).setName("Blue Rear Wall");
+        VuforiaTrackables targetsFreightFrenzy = this.vuforia.loadTrackablesFromAsset("FreightFrenzy");
+        targetsFreightFrenzy.get(0).setName("Blue Storage");
+        targetsFreightFrenzy.get(1).setName("Blue Alliance Wall");
+        targetsFreightFrenzy.get(2).setName("Red Storage");
+        targetsFreightFrenzy.get(3).setName("Red Alliance Wall");
 
         // Start tracking targets in the background
-        targetsPowerPlay.activate();
+        targetsFreightFrenzy.activate();
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
@@ -112,10 +112,9 @@ public class ConceptVuforiaDriveToTargetWebcam extends LinearOpMode
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
-        // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
-        // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
@@ -132,7 +131,7 @@ public class ConceptVuforiaDriveToTargetWebcam extends LinearOpMode
         {
             // Look for first visible target, and save its pose.
             targetFound = false;
-            for (VuforiaTrackable trackable : targetsPowerPlay)
+            for (VuforiaTrackable trackable : targetsFreightFrenzy)
             {
                 if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible())
                 {
