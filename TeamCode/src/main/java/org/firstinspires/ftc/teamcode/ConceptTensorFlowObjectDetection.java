@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-public class TensorFlow extends LinearOpMode {
+class ConceptTensorFlowObjectDetection extends LinearOpMode {
 
     /*
      * Specify the source for the Tensor Flow Model.
