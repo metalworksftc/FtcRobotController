@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class AutoTest extends LinearOpMode {
     Wheels wheels;
-    Intake intake;
+   // Intake intake;
 
     @Override
     public void runOpMode() {
