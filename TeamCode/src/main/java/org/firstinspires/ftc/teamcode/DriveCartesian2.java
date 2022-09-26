@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
 //    private Arm arm;
-  //  Intake intake;
+    Intake intake;
 
 @Override
     public void init() {
