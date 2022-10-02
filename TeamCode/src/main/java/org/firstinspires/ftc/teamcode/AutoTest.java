@@ -16,13 +16,7 @@ public class AutoTest extends LinearOpMode {
 
         waitForStart();
 
-        wheels.absoluteTurnPower(-90, wheels.driveSpeed);
-        sleep(500);
-        wheels.absoluteTurnPower(180,wheels.driveSpeed);
-        sleep(500);
-        wheels.absoluteTurnPower(90,wheels.driveSpeed);
-        sleep(500);
-        wheels.absoluteTurnPower(0,wheels.driveSpeed);
-        sleep(500);
+        wheels.right(200,0.5);
+
     }
 }

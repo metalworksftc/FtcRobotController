@@ -52,11 +52,13 @@ public class CameraCone {
         String item = null;
 
         if (linearOpMode.opModeIsActive()) {
-            while (linearOpMode.opModeIsActive()) {
+            long targetTime = System.currentTimeMillis() + 3750;
+            while (linearOpMode.opModeIsActive() &&  System.currentTimeMillis() < targetTime
+            ) {
                 if (tfod != null) {
 
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null && updatedRecognitions.size() >0 ) {
+                    if (updatedRecognitions != null && updatedRecognitions.size() >0 && item == null) {
                         telemetry.addData("# Objects Detected", updatedRecognitions.size());
 
                         for (Recognition recognition : updatedRecognitions) {
@@ -72,13 +74,13 @@ public class CameraCone {
 
                         }
                         telemetry.addLine("Item: " + updatedRecognitions.get(0).getLabel());
-                        item = updatedRecognitions.get(0).getLabel();
+                        item = updatedRecognitions.get(0).getLabel().substring(0,1);
                         telemetry.update();
                     }
                 }
             }
         }
-        return item.substring(0,1) ;
+        return item;
     }
 
     private void initVuforia() {
