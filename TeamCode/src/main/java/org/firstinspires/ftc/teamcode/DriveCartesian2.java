@@ -3,14 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "DriveCartesion2")
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
-    private Arm arm;
+    Arm arm;
     Intake intake;
 
-@Override
+    @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
          arm = new Arm(hardwareMap,telemetry);
@@ -19,6 +20,9 @@ public class DriveCartesian2 extends OpMode {
 
     @Override
     public void loop() {
+
+        arm.armMotor.setPower(gamepad1.left_stick_y);
+
 
         if (gamepad1.left_bumper) {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);

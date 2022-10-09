@@ -26,7 +26,7 @@ public class IdentifyCubeRedF5 extends LinearOpMode {
         telemetry.update();
 
         if (position == 1) {
-            wheels.left(wheels.block(1)+2,wheels.driveSpeed);
+            wheels.left(wheels.block(1)-5,wheels.driveSpeed);
             wheels.forwards(wheels.block(2),wheels.driveSpeed);
 
 
@@ -35,7 +35,7 @@ public class IdentifyCubeRedF5 extends LinearOpMode {
 
 
         } else if (position == 3) {
-            wheels.right(wheels.block(1)+2,wheels.driveSpeed);
+            wheels.right(wheels.block(1)-20,wheels.driveSpeed);
             wheels.forwards(wheels.block(2),wheels.driveSpeed);
 
         }

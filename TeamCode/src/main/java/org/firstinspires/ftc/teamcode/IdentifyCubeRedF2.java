@@ -24,7 +24,7 @@ public class IdentifyCubeRedF2 extends LinearOpMode {
         position = Integer.parseInt(cameraCone.findCone());
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.left(wheels.block(1)+2,wheels.driveSpeed);
+        wheels.left(wheels.block(1)-2,wheels.driveSpeed);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
 
@@ -38,7 +38,7 @@ public class IdentifyCubeRedF2 extends LinearOpMode {
 
 
         } else if (position == 3) {
-            wheels.forwards(wheels.block(1), wheels.driveSpeed);
+            wheels.forwards(wheels.block(2)-6, wheels.driveSpeed);
             wheels.right(wheels.block(2),wheels.driveSpeed);
 
         }

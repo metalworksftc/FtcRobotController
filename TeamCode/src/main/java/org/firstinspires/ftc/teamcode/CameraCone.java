@@ -63,6 +63,7 @@ public class CameraCone {
 
                         for (Recognition recognition : updatedRecognitions) {
                             double col = (recognition.getLeft() + recognition.getRight()) / 2 ;
+
                             double row = (recognition.getTop()  + recognition.getBottom()) / 2 ;
                             double width  = Math.abs(recognition.getRight() - recognition.getLeft()) ;
                             double height = Math.abs(recognition.getTop()  - recognition.getBottom()) ;
@@ -79,6 +80,9 @@ public class CameraCone {
                     }
                 }
             }
+        }
+        if (item == null) {
+            item = "4";
         }
         return item;
     }
