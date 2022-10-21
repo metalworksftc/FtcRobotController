@@ -21,7 +21,7 @@ public class DriveCartesian2 extends OpMode {
     @Override
     public void loop() {
 
-        arm.armMotor.setPower(gamepad1.left_stick_y);
+        arm.armMotor.setPower(-gamepad2.left_stick_y);
 
 
         if (gamepad1.left_bumper) {
