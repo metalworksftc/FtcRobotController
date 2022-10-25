@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.annotation.SuppressLint;
+import android.os.Environment;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -65,9 +66,12 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
     //private static final String TFOD_MODEL_ASSET = "PowerPlay.tflite";
     // private static final String TFOD_MODEL_FILE  = "/sdcard/FIRST/tflitemodels/CustomTeamModel.tflite";
     //@SuppressLint("SdCardPath")
-    @SuppressLint("SdCardPath")
-    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/tflitemodels/mmodel_20221017_195037.tflite";
 
+//    private static final String TFOD_MODEL_ASSET = Environment.getExternalStorageDirectory(Duck.tflite);
+    //private static final String TFOD_MODEL_ASSET = "/storage/emulated/0/FIRST/tflitemodels/myCustomFreightFrenzyModel.tflite";
+
+    @SuppressLint("SdCardPath")
+    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/tflitemodels/Duck.tflite";
 
 
     private static final String[] LABELS = {
