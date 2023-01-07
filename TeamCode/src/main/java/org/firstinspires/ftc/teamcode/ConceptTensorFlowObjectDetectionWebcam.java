@@ -53,7 +53,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
-@Disabled
 public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
 
     /*
@@ -67,15 +66,16 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
     // private static final String TFOD_MODEL_FILE  = "/sdcard/FIRST/tflitemodels/CustomTeamModel.tflite";
     //@SuppressLint("SdCardPath")
 
-//    private static final String TFOD_MODEL_ASSET = Environment.getExternalStorageDirectory(Duck.tflite);
+    //private static final String TFOD_MODEL_ASSET = Environment.getExternalStorageDirectory(Duck.tflite);
     //private static final String TFOD_MODEL_ASSET = "/storage/emulated/0/FIRST/tflitemodels/myCustomFreightFrenzyModel.tflite";
 
-    @SuppressLint("SdCardPath")
-    private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/tflitemodels/Duck.tflite";
+    //@SuppressLint("SdCardPath")
+    //private static final String TFOD_MODEL_ASSET = "/sdcard/FIRST/tflitemodels/Duck.tflite";
+    private static final String TFOD_MODEL_ASSET = "Ducks.tflite";
 
 
     private static final String[] LABELS = {
-            "Duck"
+            "Circle"
     };
 
     /*

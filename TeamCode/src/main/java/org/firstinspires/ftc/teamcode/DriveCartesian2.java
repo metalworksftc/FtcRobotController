@@ -26,23 +26,22 @@ public class DriveCartesian2 extends OpMode {
 
         if (gamepad1.left_bumper) {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
-        }
-        else {
+        } else {
             if (gamepad1.right_bumper) {
-                wheels.driveCartesian(gamepad1.left_stick_x * 1, gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 1);
-            }
-            else {
-                wheels.driveCartesian(gamepad1.left_stick_x*0.5, gamepad1.left_stick_y*0.5, gamepad1.right_stick_x*0.5);
+                wheels.driveCartesian(-gamepad1.left_stick_x * 1, -gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 1);
+            } else {
+                wheels.driveCartesian(-gamepad1.left_stick_x * 0.5, -gamepad1.left_stick_y * 0.5, gamepad1.right_stick_x * 0.5);
             }
         }
-       /*
-        telemetry.addLine(String.valueOf(wheels.leftFrontMotor.getCurrentPosition()));
-        telemetry.addLine(String.valueOf(wheels.rightFrontMotor.getCurrentPosition()));
-        telemetry.addLine(String.valueOf(wheels.leftBackMotor.getCurrentPosition()));
-        telemetry.addLine(String.valueOf(wheels.rightBackMotor.getCurrentPosition()));
 
-        telemetry.addLine(String.valueOf(wheels.getHeading()));
-        telemetry.update();
- */
+        if (gamepad2.a) {
+            telemetry.addLine("a");
+            arm.leftServo.setPosition(0);
+            arm.rightServo.setPosition(.8);
+        } else if (gamepad2.b) {
+            telemetry.addLine("b");
+            arm.leftServo.setPosition(.6);
+            arm.rightServo.setPosition(.3);
+        }
     }
 }
