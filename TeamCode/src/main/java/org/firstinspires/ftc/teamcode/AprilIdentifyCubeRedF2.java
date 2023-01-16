@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.CameraCone;
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Wheels;
 
-@Autonomous(name = "Identify Cone Red F2")
+@Autonomous(name = "April Identify Cone Red F2")
 
 public class AprilIdentifyCubeRedF2 extends LinearOpMode {
     Wheels wheels;

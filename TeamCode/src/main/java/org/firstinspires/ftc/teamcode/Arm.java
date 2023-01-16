@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -21,7 +20,23 @@ public class Arm {
         this.telemetry = telemetry;
         leftServo = hardwareMap.servo.get("ls");
         rightServo = hardwareMap.servo.get("rs");
+    }
 
+
+
+    public void move(double distance, double power) {
+        int target = armMotor.getCurrentPosition() + (int) (distance);
+        armMotor.setPower(power);
+
+        telemetry.addLine("Driving: " + armMotor.getCurrentPosition() + " of " + target);
+        telemetry.update();
+
+        while (armMotor.getCurrentPosition() < target) {
+            telemetry.addLine("Driving: " + armMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine(" Forward");
+            telemetry.update();
+        }
+        armMotor.setPower(power);
     }
 
 

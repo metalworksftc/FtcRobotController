@@ -1,21 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "DriveCartesion2")
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
     Arm arm;
     Intake intake;
-
+    int initPos;
     @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
          arm = new Arm(hardwareMap,telemetry);
         intake = new Intake(hardwareMap,telemetry);
+        initPos = (int) arm.armMotor.getCurrentPosition();
+        telemetry.addLine(String.valueOf(initPos));
+        telemetry.update();
     }
 
     @Override
@@ -34,14 +35,36 @@ public class DriveCartesian2 extends OpMode {
             }
         }
 
-        if (gamepad2.a) {
+        if (gamepad2.left_bumper) {
             telemetry.addLine("a");
-            arm.leftServo.setPosition(0);
-            arm.rightServo.setPosition(.8);
-        } else if (gamepad2.b) {
+            arm.leftServo.setPosition(.4);
+            arm.rightServo.setPosition(.5);
+        } else if (gamepad2.right_bumper) {
             telemetry.addLine("b");
             arm.leftServo.setPosition(.6);
             arm.rightServo.setPosition(.3);
         }
+        telemetry.addLine(String.valueOf(arm.armMotor.getCurrentPosition()));
+        if (gamepad2.a) {
+           // arm.move(13.5,.75);
+
+        }
+        if (gamepad2.b) {
+           // arm.move(23.5, .75);
+            arm.armMotor.setTargetPosition(initPos + 300);
+        }
+        if (gamepad2.y) {
+           // arm.move(33.5,.75);
+            arm.armMotor.setTargetPosition(initPos + 600);
+        }
+        if (gamepad2.x) {
+            //arm.move(0, .75);
+            arm.armMotor.setTargetPosition(initPos + 800);
+        }
+
+        //a = low
+        //b = medium
+        //x = ground
+        //y = high
     }
 }
