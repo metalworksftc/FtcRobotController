@@ -29,7 +29,6 @@ public class AprilIdentifyCubeRedF5 extends LinearOpMode {
             wheels.left(wheels.block(1)-5,wheels.driveSpeed);
             wheels.forwards(wheels.block(2),wheels.driveSpeed);
 
-
         } else if (position == 2) {
             wheels.forwards(wheels.block(2),wheels.driveSpeed);
 
