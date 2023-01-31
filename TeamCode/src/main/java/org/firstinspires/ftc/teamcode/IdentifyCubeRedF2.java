@@ -39,7 +39,7 @@ public class IdentifyCubeRedF2 extends LinearOpMode {
 
         } else if (position == 3) {
             wheels.forwards(wheels.block(2)-6, wheels.driveSpeed);
-            wheels.right(wheels.block(2),wheels.driveSpeed);
+            wheels.right(wheels.block(2)+4, wheels.driveSpeed);
 
         }
     }

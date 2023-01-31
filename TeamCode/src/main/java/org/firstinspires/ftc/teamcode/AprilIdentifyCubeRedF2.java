@@ -2,6 +2,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.CameraCone;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Wheels;
 
 @Autonomous(name = "April Identify Cone Red F2")
-
+@Disabled
 public class AprilIdentifyCubeRedF2 extends LinearOpMode {
     Wheels wheels;
     Intake intake;

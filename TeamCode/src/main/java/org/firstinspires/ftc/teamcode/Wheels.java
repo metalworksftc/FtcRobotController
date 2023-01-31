@@ -68,10 +68,10 @@ public class Wheels {
     double wheelSpeeds[] = new double[4];
     public void driveCartesian(double x, double y, double rotation) {
 
-        wheelSpeeds[0] = x - y + rotation;
+        wheelSpeeds[0] = -x + y + rotation;
         wheelSpeeds[1] = -x - y - rotation;
-        wheelSpeeds[2] = x + y - rotation;
-        wheelSpeeds[3] = x - y - rotation;
+        wheelSpeeds[2] = -x + y - rotation;
+        wheelSpeeds[3] = x +  y - rotation;
 
         normalize(wheelSpeeds);
 
