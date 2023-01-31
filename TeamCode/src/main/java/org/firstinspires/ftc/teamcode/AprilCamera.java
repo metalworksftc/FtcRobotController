@@ -18,13 +18,14 @@ public class AprilCamera {
     private LinearOpMode linearOpMode;
     private OpenCvCamera camera;
     private AprilTagDetectionPipeline aprilTagDetectionPipeline;
-   private double fx = 578.272;
-   private double fy = 578.272;
-   private double cx = 402.145;
-   private double cy = 221.506;
-   private AprilTagDetection tagOfInterest = null;
+    private double fx = 578.272;
+    private double fy = 578.272;
+    private double cx = 402.145;
+    private double cy = 221.506;
+    private AprilTagDetection tagOfInterest = null;
+    private static final double FEET_PER_METER = 3.28084;
+    private double tagsize = 0.166;
 
-   private double tagsize = 0.166;
     public AprilCamera(HardwareMap hardwareMapIn, Telemetry telemetryIn, LinearOpMode linearOpModeIn) {
         hardwareMap = hardwareMapIn;
         telemetry = telemetryIn;
@@ -106,11 +107,11 @@ public class AprilCamera {
         return tagOfInterest.id;
     }
 
-    void tagToTelemetry(AprilTagDetection detection) {
+    private void tagToTelemetry(AprilTagDetection detection) {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x* AprilCamera2.FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y* AprilCamera2.FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z* AprilCamera2.FEET_PER_METER));
+        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x* FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y* FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z* FEET_PER_METER));
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));

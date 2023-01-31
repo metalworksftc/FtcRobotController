@@ -24,18 +24,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 
 @Autonomous
-public class AprilCamera2 extends LinearOpMode
+public class AprilCameraAuto extends LinearOpMode
 {
     OpenCvCamera camera;
     Wheels wheels;
     AprilCamera aprilCamera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
-    static final double FEET_PER_METER = 3.28084;
 
     int ID_TAG_OF_INTEREST = 14; // Tag ID 18 from the 36h11 family
 
