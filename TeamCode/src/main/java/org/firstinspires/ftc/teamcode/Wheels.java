@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Wheels {
-    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor, flywheelMotor;
+    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
     Telemetry telemetry;
     PID pid;
     protected Orientation angles;
@@ -82,7 +82,7 @@ public class Wheels {
 
     }   //mecanumDrive_Cartesian
 
-    protected static final double DRIVE_CALIBRATION = 47.659;
+    protected static final double DRIVE_CALIBRATION = 47.4375;
     protected static final double CALIBRATION_COUNTS = 2000;
     double COUNTS_PER_INCH = CALIBRATION_COUNTS / DRIVE_CALIBRATION;
 
@@ -203,21 +203,6 @@ public class Wheels {
         driveCartesian(0, 0, 0);
     }
 
-    public void diagonal (double x, double y, double power){
-        int targetX= rightFrontMotor.getCurrentPosition() - (int)  (COUNTS_PER_INCH * x);
-        int targetY = rightFrontMotor.getCurrentPosition() - (int)  y;
-        driveCartesian(power, power,0);
-        while (rightFrontMotor.getCurrentPosition() > targetY) {
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + targetX);
-            telemetry.update();
-        }
-        while (rightFrontMotor.getCurrentPosition() > targetY) {
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + targetX);
-            telemetry.update();
-        }
-        driveCartesian(0,0,0);
-
-    }
 
     protected void absoluteTurnPower(float target, double power) {
         //turn left
@@ -279,14 +264,14 @@ public class Wheels {
     }
 
     public double block(double blocks) {
-        return 23.75 * blocks + 3;
+        return 23.75 * blocks + 8;
     }
 
     public void pid(boolean right, int target) {
 
         if (getHeading() < target) {
             telemetry.addLine("Less Than");
-            if (right = true) {
+            if (right) {
 
                 rightFrontMotor.setPower(driveSpeed - 0.02);
                 leftBackMotor.setPower(driveSpeed + 0.02);
@@ -300,7 +285,7 @@ public class Wheels {
             telemetry.update();
         } else if (getHeading() > target) {
             telemetry.addLine("Greater Than");
-            if (right = true) {
+            if (right) {
 
                 leftFrontMotor.setPower(driveSpeed + 0.02);
                 rightBackMotor.setPower(driveSpeed + 0.02);

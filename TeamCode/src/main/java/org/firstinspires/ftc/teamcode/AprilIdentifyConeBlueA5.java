@@ -28,16 +28,16 @@ public class AprilIdentifyConeBlueA5 extends LinearOpMode {
 
         if (position == 1) {
             wheels.left(wheels.block(1)+2,wheels.driveSpeed);
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.forwards(wheels.block(1),wheels.driveSpeed);
 
 
         } else if (position == 2) {
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.forwards(wheels.block(1),wheels.driveSpeed);
 
 
         } else if (position == 3) {
             wheels.right(wheels.block(1)+2,wheels.driveSpeed);
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.forwards(wheels.block(1),wheels.driveSpeed);
 
         }
     }

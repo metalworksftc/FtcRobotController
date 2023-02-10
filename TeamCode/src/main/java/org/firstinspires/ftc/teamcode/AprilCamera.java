@@ -53,7 +53,8 @@ public class AprilCamera {
     }
 
     public int findTag() {
-        while (!linearOpMode.isStopRequested()) {
+        long targetTime = System.currentTimeMillis() + 3750;
+        while ((!linearOpMode.isStopRequested()) && System.currentTimeMillis() < targetTime)  {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if(currentDetections.size() != 0) {
@@ -102,7 +103,7 @@ public class AprilCamera {
             linearOpMode.sleep(20);
         }
         if (tagOfInterest == null) {
-            return 12;
+            return 11;
         }
         return tagOfInterest.id;
     }

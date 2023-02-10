@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -10,6 +11,8 @@ public class Arm {
     Telemetry telemetry;
     DcMotor armMotor;
     Servo leftServo, rightServo;
+    TouchSensor touchSensor;
+
     public Arm(HardwareMap hardwareMap, Telemetry telemetry) {
         init(hardwareMap,telemetry);
     }
@@ -20,7 +23,7 @@ public class Arm {
         this.telemetry = telemetry;
         leftServo = hardwareMap.servo.get("ls");
         rightServo = hardwareMap.servo.get("rs");
-    }
+        touchSensor = hardwareMap.get(TouchSensor.class, "mls");    }
 
 
 
@@ -37,6 +40,13 @@ public class Arm {
             telemetry.update();
         }
         armMotor.setPower(power);
+    }
+
+    public void moveLow() {
+        while (!(touchSensor.isPressed())) {
+            armMotor.setPower(.5);
+        }
+        armMotor.setPower(0);
     }
 
 

@@ -22,7 +22,7 @@ public class DriveCartesian2 extends OpMode {
     @Override
     public void loop() {
 
-        arm.armMotor.setPower(-gamepad2.left_stick_y);
+        arm.armMotor.setPower(gamepad2.left_stick_y);
 
 
         if (gamepad1.left_bumper) {
@@ -43,22 +43,22 @@ public class DriveCartesian2 extends OpMode {
             arm.rightServo.setPosition(.3);
         }
         telemetry.addLine(String.valueOf(arm.armMotor.getCurrentPosition()));
-        if (gamepad2.a) {
-           // arm.move(13.5,.75);
-
-        }
-        if (gamepad2.b) {
-           // arm.move(23.5, .75);
-            arm.armMotor.setTargetPosition(initPos + 300);
-        }
-        if (gamepad2.y) {
-           // arm.move(33.5,.75);
-            arm.armMotor.setTargetPosition(initPos + 600);
-        }
-        if (gamepad2.x) {
-            //arm.move(0, .75);
-            arm.armMotor.setTargetPosition(initPos + 800);
-        }
+//        if (gamepad2.a) {
+//            arm.moveLow();
+//
+//        }
+//        if (gamepad2.b) {
+//           // arm.move(23.5, .75);
+//            arm.armMotor.setTargetPosition(initPos + 300);
+//        }
+//        if (gamepad2.y) {
+//           // arm.move(33.5,.75);
+//            arm.armMotor.setTargetPosition(initPos + 600);
+//        }
+//        if (gamepad2.x) {
+//            //arm.move(0, .75);
+//            arm.armMotor.setTargetPosition(initPos + 800);
+//        }
 
         //a = low
         //b = medium
