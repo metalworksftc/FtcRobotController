@@ -2,7 +2,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name = "April Identify Cone Blue A2")
@@ -25,25 +24,25 @@ public class AprilIdentifyConeBlueA2 extends LinearOpMode {
         position = aprilCamera.findTag();
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.right(wheels.block(1)+2,wheels.driveSpeed);
+        wheels.right(wheels.cartesionBlock(1)+2,wheels.driveSpeed);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
         wheels.absoluteTurnPower(0,wheels.driveSpeed);
 
         if (position == 12) {
-            wheels.forwards(wheels.block(1)-7,wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(1)-7,wheels.driveSpeed);
             wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.left(wheels.block(2)+5,wheels.driveSpeed);
+            wheels.left(wheels.cartesionBlock(2)+5,wheels.driveSpeed);
 
 
         } else if (position == 13) {
-            wheels.forwards(wheels.block(1)-14,wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(1)-14,wheels.driveSpeed);
             wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.left(wheels.block(1)+7,wheels.driveSpeed);
+            wheels.left(wheels.cartesionBlock(1)+7,wheels.driveSpeed);
 
 
         } else if (position == 14) {
-            wheels.forwards(wheels.block(1)-7, wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(1)-7, wheels.driveSpeed);
 
         }
     }

@@ -12,6 +12,7 @@ public class Arm {
     DcMotor armMotor;
     Servo leftServo, rightServo;
     TouchSensor touchSensor;
+    Arm arm;
 
     public Arm(HardwareMap hardwareMap, Telemetry telemetry) {
         init(hardwareMap,telemetry);
@@ -47,6 +48,10 @@ public class Arm {
             armMotor.setPower(.5);
         }
         armMotor.setPower(0);
+    }
+    public void close() {
+        arm.leftServo.setPosition(.4);
+        arm.rightServo.setPosition(.5);
     }
 
 

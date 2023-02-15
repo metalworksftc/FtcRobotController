@@ -24,22 +24,22 @@ public class IdentifyCubeRedF2 extends LinearOpMode {
         position = Integer.parseInt(cameraCone.findCone());
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.left(wheels.block(1)-2,wheels.driveSpeed);
+        wheels.left(wheels.cartesionBlock(1)-2,wheels.driveSpeed);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
 
         if (position == 1) {
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2),wheels.driveSpeed);
 
 
         } else if (position == 2) {
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
-            wheels.right(wheels.block(1),wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2),wheels.driveSpeed);
+            wheels.right(wheels.cartesionBlock(1),wheels.driveSpeed);
 
 
         } else if (position == 3) {
-            wheels.forwards(wheels.block(2)-6, wheels.driveSpeed);
-            wheels.right(wheels.block(2)+4, wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2)-6, wheels.driveSpeed);
+            wheels.right(wheels.cartesionBlock(2)+4, wheels.driveSpeed);
 
         }
     }

@@ -2,50 +2,49 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.CameraCone;
-import org.firstinspires.ftc.teamcode.Intake;
-import org.firstinspires.ftc.teamcode.Wheels;
-
 @Autonomous(name = "April Identify Cone Red F2")
-@Disabled
+
 public class AprilIdentifyCubeRedF2 extends LinearOpMode {
     Wheels wheels;
     Intake intake;
-    CameraCone cameraCone;
+    AprilCamera aprilCamera;
 
     @Override
     public void runOpMode() throws InterruptedException {
         wheels = new Wheels(hardwareMap, telemetry);
         intake = new Intake(hardwareMap,telemetry);
-        cameraCone = new CameraCone(hardwareMap,telemetry,this);
+        aprilCamera = new AprilCamera(hardwareMap,telemetry,this);
         int position;
+        aprilCamera.initCamera();
         telemetry.addLine("Initialized");
         telemetry.update();
         waitForStart();
 
-        position = Integer.parseInt(cameraCone.findCone());
+        position = aprilCamera.findTag();
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.left(wheels.block(1)-2,wheels.driveSpeed);
+        wheels.left(wheels.cartesionBlock(1),wheels.driveSpeed);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
+        //wheels.absoluteTurnPower(0,wheels.driveSpeed);
 
-        if (position == 1) {
-            wheels.forwards(wheels.block(1),wheels.driveSpeed);
-
-
-        } else if (position == 2) {
-            wheels.forwards(wheels.block(1),wheels.driveSpeed);
-            wheels.right(wheels.block(1),wheels.driveSpeed);
+        if (position == 12) {
+            wheels.forwards(wheels.cartesionBlock(1)-7,wheels.driveSpeed);
+            wheels.absoluteTurnPower(0,wheels.driveSpeed);
+            wheels.right(wheels.cartesionBlock(2)+5,wheels.driveSpeed);
 
 
-        } else if (position == 3) {
-            wheels.forwards(wheels.block(1)-6, wheels.driveSpeed);
-            wheels.right(wheels.block(2),wheels.driveSpeed);
+        } else if (position == 13) {
+            wheels.forwards(wheels.cartesionBlock(1)-14,wheels.driveSpeed);
+            wheels.absoluteTurnPower(0,wheels.driveSpeed);
+            wheels.right(wheels.cartesionBlock(1)+2,wheels.driveSpeed);
 
+
+        } else if (position == 14) {
+            wheels.absoluteTurnPower(0,wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(1)-7, wheels.driveSpeed);
         }
     }
 }

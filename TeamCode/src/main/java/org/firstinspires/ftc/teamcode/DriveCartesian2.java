@@ -36,8 +36,6 @@ public class DriveCartesian2 extends OpMode {
         }
 
         if (gamepad2.left_bumper) {
-            arm.leftServo.setPosition(.4);
-            arm.rightServo.setPosition(.5);
         } else if (gamepad2.right_bumper) {
             arm.leftServo.setPosition(.6);
             arm.rightServo.setPosition(.3);

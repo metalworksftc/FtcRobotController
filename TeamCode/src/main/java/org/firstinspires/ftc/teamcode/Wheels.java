@@ -82,10 +82,11 @@ public class Wheels {
 
     }   //mecanumDrive_Cartesian
 
+    protected static final double RADIAN_DRIVE_CALIBRATION = 51.66;
     protected static final double DRIVE_CALIBRATION = 47.4375;
     protected static final double CALIBRATION_COUNTS = 2000;
     double COUNTS_PER_INCH = CALIBRATION_COUNTS / DRIVE_CALIBRATION;
-
+    double RADIAN_COUNTS_PER_INCH = CALIBRATION_COUNTS / RADIAN_DRIVE_CALIBRATION;
     public void backwards(double distance, double power) {
 
         backwardsCount(distance*COUNTS_PER_INCH, power);
@@ -256,15 +257,16 @@ public class Wheels {
     public double driveSpeed = 0.5;
     public double turnSpeed = 0.35;
 
-
-
     public void reversePower( float xPower, float yPower, float rotation){
         driveCartesian(-xPower*0.5,-yPower*0.5,rotation*0.5);
 
     }
 
-    public double block(double blocks) {
+    public double cartesionBlock(double blocks) {
         return 23.75 * blocks + 8;
+    }
+    public double block(double blocks) {
+        return 23.75 * blocks - 4;
     }
 
     public void pid(boolean right, int target) {
@@ -275,7 +277,7 @@ public class Wheels {
 
                 rightFrontMotor.setPower(driveSpeed - 0.02);
                 leftBackMotor.setPower(driveSpeed + 0.02);
-                telemetry.addLine("Right");
+                telemetry.addLine("Right");//hi
             } else {
                 leftFrontMotor.setPower(driveSpeed + 0.02);
                 rightBackMotor.setPower(driveSpeed + 0.02);
@@ -303,5 +305,33 @@ public class Wheels {
             rightBackMotor.setPower(driveSpeed);
         }
     }
+    double radianWheelSpeeds[] = new double[2];
+
+    public void radianTurn(double degreeAngle, double distance) {
+        double radian = (degreeAngle * Math.PI)/ 180;
+        double red = Math.sin(radian+(.25*Math.PI));
+        double blue = Math.sin(radian-(.25*Math.PI));
+        radianWheelSpeeds[0] = red;
+        radianWheelSpeeds[1] = blue;
+        //Add while with a target to call and stop driveRadian
+        distance *= RADIAN_COUNTS_PER_INCH;
+        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
+        driveRadian(radianWheelSpeeds);
+        while (rightFrontMotor.getCurrentPosition() > target) {
+            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine(" Backwards");
+            telemetry.update();
+        }
+        driveRadian(radianWheelSpeeds);
+    }
+
+    public void driveRadian(double[] array) {
+        leftFrontMotor.setPower(-array[0]*.75);
+        rightFrontMotor.setPower(array[1]*.75);
+        leftBackMotor.setPower(-array[1]*.75);
+        rightBackMotor.setPower(-array[0]*.75);
+    }
+
 
 }

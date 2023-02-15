@@ -26,17 +26,17 @@ public class IdentifyCubeRedF5 extends LinearOpMode {
         telemetry.update();
 
         if (position == 1) {
-            wheels.left(wheels.block(1)-5,wheels.driveSpeed);
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.left(wheels.cartesionBlock(1)-5,wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2),wheels.driveSpeed);
 
 
         } else if (position == 2) {
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2),wheels.driveSpeed);
 
 
         } else if (position == 3) {
-            wheels.right(wheels.block(1),wheels.driveSpeed);
-            wheels.forwards(wheels.block(2),wheels.driveSpeed);
+            wheels.right(wheels.cartesionBlock(1),wheels.driveSpeed);
+            wheels.forwards(wheels.cartesionBlock(2),wheels.driveSpeed);
 
         }
     }
