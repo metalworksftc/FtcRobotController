@@ -218,7 +218,7 @@ public class Wheels {
         if (distLeft < distRight) {
             driveCartesian(0,0,-power);
             //turn left
-            while (distLeft > 8) {
+            while (distLeft > 2) {
                 telemetry.addLine("Turning Left: " + getHeading() + " of " + target);
                 telemetry.update();
                 distLeft = target - getHeading();
@@ -259,14 +259,13 @@ public class Wheels {
 
     public void reversePower( float xPower, float yPower, float rotation){
         driveCartesian(-xPower*0.5,-yPower*0.5,rotation*0.5);
-
     }
 
+//    public double cartesionBlock(double blocks) {
+//        return 23.75 * blocks + 8;
+//    }
     public double cartesionBlock(double blocks) {
-        return 23.75 * blocks + 8;
-    }
-    public double block(double blocks) {
-        return 23.75 * blocks - 4;
+        return 23.75 * blocks + 6;
     }
 
     public void pid(boolean right, int target) {
@@ -307,21 +306,31 @@ public class Wheels {
     }
     double radianWheelSpeeds[] = new double[2];
 
-    public void radianTurn(double degreeAngle, double distance) {
+    public void radianMove(double degreeAngle, double distance) {
         double radian = (degreeAngle * Math.PI)/ 180;
         double red = Math.sin(radian+(.25*Math.PI));
         double blue = Math.sin(radian-(.25*Math.PI));
         radianWheelSpeeds[0] = red;
         radianWheelSpeeds[1] = blue;
-        //Add while with a target to call and stop driveRadian
         distance *= RADIAN_COUNTS_PER_INCH;
-        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
-        driveRadian(radianWheelSpeeds);
-        while (rightFrontMotor.getCurrentPosition() > target) {
-            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
-            telemetry.addLine(" Backwards");
-            telemetry.update();
+        int target;
+        if (degreeAngle >= 270 && degreeAngle < 360 || degreeAngle >= 0 && degreeAngle < 90) {
+          target = rightFrontMotor.getCurrentPosition() + (int) distance;
+          driveRadian(radianWheelSpeeds);
+          while (rightFrontMotor.getCurrentPosition() < target) {
+
+              telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+              telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " or " + leftFrontMotor.getCurrentPosition() + " of " + target);
+              telemetry.update();
+          }
+        } else {
+            target = rightFrontMotor.getCurrentPosition() - (int) distance;
+            driveRadian(radianWheelSpeeds);
+            while (rightFrontMotor.getCurrentPosition() > target) {
+                telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+                telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " or " + leftFrontMotor.getCurrentPosition() + " of " + target);
+                telemetry.update();
+            }
         }
         driveRadian(radianWheelSpeeds);
     }

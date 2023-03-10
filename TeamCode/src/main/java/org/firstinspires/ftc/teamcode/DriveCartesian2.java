@@ -22,8 +22,18 @@ public class DriveCartesian2 extends OpMode {
     @Override
     public void loop() {
 
-        arm.armMotor.setPower(gamepad2.left_stick_y);
+        if (arm.touchSensor.isPressed()) {
 
+            if (arm.armMotor.getPower() > 0) {
+                arm.armMotor.setPower(0);
+            } else if (gamepad2.left_stick_y <  0) {
+                arm.armMotor.setPower(gamepad2.left_stick_y);
+            }
+            telemetry.addLine("Is Pressed");
+            telemetry.update();
+        } else {
+            arm.armMotor.setPower(gamepad2.left_stick_y);
+        }
 
         if (gamepad1.left_bumper) {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
@@ -36,15 +46,19 @@ public class DriveCartesian2 extends OpMode {
         }
 
         if (gamepad2.left_bumper) {
+            arm.leftServo.setPosition(.4);
+            arm.rightServo.setPosition(.5);
         } else if (gamepad2.right_bumper) {
             arm.leftServo.setPosition(.6);
             arm.rightServo.setPosition(.3);
         }
         telemetry.addLine(String.valueOf(arm.armMotor.getCurrentPosition()));
-//        if (gamepad2.a) {
-//            arm.moveLow();
-//
-//        }
+
+
+        if (gamepad2.a) {
+            arm.moveLow();
+
+        }
 //        if (gamepad2.b) {
 //           // arm.move(23.5, .75);
 //            arm.armMotor.setTargetPosition(initPos + 300);

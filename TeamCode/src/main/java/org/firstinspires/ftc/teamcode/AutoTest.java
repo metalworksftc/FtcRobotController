@@ -22,7 +22,7 @@ public class AutoTest extends LinearOpMode {
 //        wheels.backwards(wheels.block(1),wheels.driveSpeed);
 //        wheels.right(wheels.block(1),wheels.driveSpeed);
 
-            wheels.radianTurn(90, wheels.block(1));
+            wheels.radianMove(0, wheels.cartesionBlock(1));
 
     }
 }

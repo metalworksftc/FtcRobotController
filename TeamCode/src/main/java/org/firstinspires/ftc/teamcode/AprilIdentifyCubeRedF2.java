@@ -25,26 +25,24 @@ public class AprilIdentifyCubeRedF2 extends LinearOpMode {
         position = aprilCamera.findTag();
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.left(wheels.cartesionBlock(1),wheels.driveSpeed);
+        wheels.radianMove(180,wheels.cartesionBlock(1)+6);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
         //wheels.absoluteTurnPower(0,wheels.driveSpeed);
 
-        if (position == 12) {
-            wheels.forwards(wheels.cartesionBlock(1)-7,wheels.driveSpeed);
+        if (position == 14) {
+            wheels.radianMove(0,wheels.cartesionBlock(2)+10);
             wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.right(wheels.cartesionBlock(2)+5,wheels.driveSpeed);
-
+            wheels.radianMove(90,wheels.cartesionBlock(1));
 
         } else if (position == 13) {
-            wheels.forwards(wheels.cartesionBlock(1)-14,wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1)-5);
             wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.right(wheels.cartesionBlock(1)+2,wheels.driveSpeed);
+            wheels.radianMove(0,wheels.cartesionBlock(1)+14);
 
-
-        } else if (position == 14) {
+        } else if (position == 12) {
             wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.forwards(wheels.cartesionBlock(1)-7, wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1)-7);
         }
     }
 }

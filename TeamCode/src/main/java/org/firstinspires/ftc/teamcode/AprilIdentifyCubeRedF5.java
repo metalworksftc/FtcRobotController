@@ -26,19 +26,19 @@ public class AprilIdentifyCubeRedF5 extends LinearOpMode {
         telemetry.update();
 
         if (position == 12) {
-            wheels.left(wheels.cartesionBlock(1)-5,wheels.driveSpeed);
-            wheels.forwards(wheels.cartesionBlock(1),wheels.driveSpeed);
+            wheels.radianMove(180,wheels.cartesionBlock(1)+5);
+            wheels.radianMove(90,wheels.cartesionBlock(1));
 
         } else if (position == 13) {
-            wheels.forwards(wheels.cartesionBlock(1),wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1));
 
 
         } else if (position == 14) {
-            wheels.right(wheels.cartesionBlock(1)-4,wheels.driveSpeed);
+            wheels.radianMove(0,wheels.cartesionBlock(1));
             wheels.absoluteTurnPower(0, wheels.driveSpeed);
-            wheels.forwards(wheels.cartesionBlock(1),wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1));
         } else {
-            wheels.forwards(1, wheels.driveSpeed);
+            wheels.radianMove(90, wheels.driveSpeed);
         }
     }
 }

@@ -24,25 +24,27 @@ public class AprilIdentifyConeBlueA2 extends LinearOpMode {
         position = aprilCamera.findTag();
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
-        wheels.right(wheels.cartesionBlock(1)+2,wheels.driveSpeed);
+        wheels.radianMove(0,wheels.cartesionBlock(1)+2);
         telemetry.addLine(String.valueOf(position));
         telemetry.update();
         wheels.absoluteTurnPower(0,wheels.driveSpeed);
 
         if (position == 12) {
-            wheels.forwards(wheels.cartesionBlock(1)-7,wheels.driveSpeed);
-            wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.left(wheels.cartesionBlock(2)+5,wheels.driveSpeed);
+            wheels.radianMove(180,wheels.cartesionBlock(1)+4);
+            wheels.radianMove(270, 6);
+            wheels.radianMove(180,wheels.cartesionBlock(1));
+            wheels.absoluteTurnPower(-15,wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1)-12);
 
 
         } else if (position == 13) {
-            wheels.forwards(wheels.cartesionBlock(1)-14,wheels.driveSpeed);
-            wheels.absoluteTurnPower(0,wheels.driveSpeed);
-            wheels.left(wheels.cartesionBlock(1)+7,wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1)-14);
+            wheels.absoluteTurnPower(-15,wheels.driveSpeed);
+            wheels.radianMove(180,wheels.cartesionBlock(1)+7);
 
 
         } else if (position == 14) {
-            wheels.forwards(wheels.cartesionBlock(1)-7, wheels.driveSpeed);
+            wheels.radianMove(90,wheels.cartesionBlock(1)-7);
 
         }
     }

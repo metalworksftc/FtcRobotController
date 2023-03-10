@@ -50,8 +50,8 @@ public class Arm {
         armMotor.setPower(0);
     }
     public void close() {
-        arm.leftServo.setPosition(.4);
-        arm.rightServo.setPosition(.5);
+        leftServo.setPosition(.6);
+        rightServo.setPosition(.3);
     }
 
 
