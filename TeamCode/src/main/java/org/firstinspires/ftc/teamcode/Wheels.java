@@ -69,9 +69,9 @@ public class Wheels {
     public void driveCartesian(double x, double y, double rotation) {
 
         wheelSpeeds[0] = -x + y + rotation;
-        wheelSpeeds[1] = -x - y + rotation;
+        wheelSpeeds[1] = -x + y - rotation;
         wheelSpeeds[2] = x + y + rotation;
-        wheelSpeeds[3] = -x +  y - rotation;
+        wheelSpeeds[3] = x +  y - rotation;
 
         normalize(wheelSpeeds);
 
@@ -287,11 +287,12 @@ public class Wheels {
         } else if (getHeading() > target) {
             telemetry.addLine("Greater Than");
             if (right) {
-
+                //driveCartesion(driveSpeed,0,0.02)
                 leftFrontMotor.setPower(driveSpeed + 0.02);
                 rightBackMotor.setPower(driveSpeed + 0.02);
                 telemetry.addLine("Right");
             } else {
+                //driveCartesion(driveSpeed,0,-0.02
                 rightFrontMotor.setPower(driveSpeed - 0.02);
                 leftBackMotor.setPower(driveSpeed + 0.02);
                 telemetry.addLine("Left");
@@ -310,6 +311,7 @@ public class Wheels {
         double radian = (degreeAngle * Math.PI)/ 180;
         double red = Math.sin(radian+(.25*Math.PI));
         double blue = Math.sin(radian-(.25*Math.PI));
+
         radianWheelSpeeds[0] = red;
         radianWheelSpeeds[1] = blue;
         distance *= RADIAN_COUNTS_PER_INCH;

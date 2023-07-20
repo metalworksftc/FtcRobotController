@@ -20,26 +20,10 @@ public class PID {
 
     public void pid(boolean right, int target) {
 
-        if (wheels.getHeading() < target) {
-            if (right = true) {
-
-            wheels.rightFrontMotor.setPower(wheels.driveSpeed + 0.02);
-            wheels.leftBackMotor.setPower(wheels.driveSpeed + 0.02);
-            } else {
-
-            wheels.leftFrontMotor.setPower(wheels.driveSpeed + 0.02);
-            wheels.rightBackMotor.setPower(wheels.driveSpeed + 0.02);
-            }
-        } else if (wheels.getHeading() > target) {
-            if (right = true) {
-
-                wheels.leftFrontMotor.setPower(wheels.driveSpeed + 0.02);
-                wheels.rightBackMotor.setPower(wheels.driveSpeed + 0.02);
-            } else {
-                wheels.rightFrontMotor.setPower(wheels.driveSpeed + 0.02);
-                wheels.leftBackMotor.setPower(wheels.driveSpeed + 0.02);
-
-            }
+        if (wheels.rightFrontMotor.getCurrentPosition() > wheels.leftBackMotor.getCurrentPosition()) {
+           wheels.leftBackMotor.setPower(wheels.leftBackMotor.getPower() + 0.02);
+        } else if (wheels.rightFrontMotor.getCurrentPosition() < wheels.leftBackMotor.getCurrentPosition()) {
+            wheels.rightFrontMotor.setPower(wheels.rightFrontMotor.getPower() - 0.02);
         } else {
             wheels.leftFrontMotor.setPower(wheels.driveSpeed);
             wheels.rightFrontMotor.setPower(wheels.driveSpeed);

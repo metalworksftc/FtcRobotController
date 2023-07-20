@@ -15,6 +15,7 @@ public class AutoTest extends LinearOpMode {
         wheels = new Wheels(hardwareMap, telemetry);
 
         waitForStart();
+        wheels.forwards(20, wheels.driveSpeed);
 
         //wheels.forwardsCounts(2000,0.5);
 //        wheels.forwards(wheels.block(1),wheels.driveSpeed);
@@ -22,7 +23,7 @@ public class AutoTest extends LinearOpMode {
 //        wheels.backwards(wheels.block(1),wheels.driveSpeed);
 //        wheels.right(wheels.block(1),wheels.driveSpeed);
 
-            wheels.radianMove(0, wheels.cartesionBlock(1));
+            //wheels.radianMove(0, wheels.cartesionBlock(1));
 
     }
 }

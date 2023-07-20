@@ -11,14 +11,14 @@ public class AprilIdentifyConeBlueA5 extends LinearOpMode {
     Wheels wheels;
     Intake intake;
     AprilCamera aprilCamera;
-    Arm arm;
+    //Arm arm;
 
     @Override
     public void runOpMode() throws InterruptedException {
         wheels = new Wheels(hardwareMap, telemetry);
         intake = new Intake(hardwareMap,telemetry);
         aprilCamera = new AprilCamera(hardwareMap,telemetry,this);
-        arm = new Arm(hardwareMap,telemetry);
+       // arm = new Arm(hardwareMap,telemetry);
         int position;
         aprilCamera.initCamera();
         telemetry.addLine("Initialized");
