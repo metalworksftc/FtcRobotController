@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teamcode;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
