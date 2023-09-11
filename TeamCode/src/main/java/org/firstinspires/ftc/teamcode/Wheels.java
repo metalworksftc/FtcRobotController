@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class Wheels {
     DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
     Telemetry telemetry;
-    PID pid;
+    //PID pid;
     protected Orientation angles;
     protected BNO055IMU imu;
 
