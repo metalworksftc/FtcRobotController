@@ -2,21 +2,23 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @TeleOp(name = "DriveCartesion2")
 public class DriveCartesian2 extends OpMode {
     Wheels wheels;
-    //Arm arm;
+    Arm arm;
     Intake intake;
     int initPos;
     @Override
     public void init() {
         wheels = new Wheels(hardwareMap, telemetry);
-        // arm = new Arm(hardwareMap,telemetry);
+         arm = new Arm(hardwareMap,telemetry);
         intake = new Intake(hardwareMap,telemetry);
        // initPos = (int) arm.armMotor.getCurrentPosition();
         telemetry.addLine(String.valueOf(initPos));
         telemetry.update();
+        
     }
 
     @Override
@@ -26,11 +28,19 @@ public class DriveCartesian2 extends OpMode {
             wheels.reversePower(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
         } else {
             if (gamepad1.right_bumper) {
-                wheels.driveCartesian(gamepad1.left_stick_x * 1, -gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 1);
+                wheels.driveCartesian(-gamepad1.left_stick_x * 1, gamepad1.left_stick_y * 1, gamepad1.right_stick_x * 1);
             } else {
-                wheels.driveCartesian(gamepad1.left_stick_x * 0.5, -gamepad1.left_stick_y * 0.5, gamepad1.right_stick_x * 0.5);
+                wheels.driveCartesian(-gamepad1.left_stick_x * 0.5, gamepad1.left_stick_y * 0.5, gamepad1.right_stick_x * 0.5);
             }
         }
+        telemetry.addLine("ONE");
+        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor1.red()));
+        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor1.green()));
+        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor1.blue()));
+        telemetry.addLine("\nTwo");
+        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor2.red()));
+        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor2.green()));
+        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor2.blue()));
 
         initPos = wheels.rightFrontMotor.getCurrentPosition();
     }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class Wheels {
     DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
     Telemetry telemetry;
+    ColorSensor colorSensor1, colorSensor2;
     //PID pid;
     protected Orientation angles;
     protected BNO055IMU imu;
@@ -37,15 +39,18 @@ public class Wheels {
         rightBackMotor = hardwareMap.dcMotor.get("rbm");
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.telemetry = telemetry;
-        BNO055IMU.Parameters parameters2 = new BNO055IMU.Parameters();
-        parameters2.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters2.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters2.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters2.loggingEnabled      = true;
-        parameters2.loggingTag          = "IMU";
-        parameters2.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "AdafruitIMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
         imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters2);
+        imu.initialize(parameters);
+
+        colorSensor1 = hardwareMap.colorSensor.get("cs1");
+        colorSensor2 = hardwareMap.colorSensor.get("cs2");
     }
 
     private void normalize(double[] wheelSpeeds) {
@@ -68,9 +73,9 @@ public class Wheels {
     double wheelSpeeds[] = new double[4];
     public void driveCartesian(double x, double y, double rotation) {
 
-        wheelSpeeds[0] = -x + y + rotation;
+        wheelSpeeds[0] = x + y + rotation;
         wheelSpeeds[1] = -x + y - rotation;
-        wheelSpeeds[2] = x + y + rotation;
+        wheelSpeeds[2] = -x + y + rotation;
         wheelSpeeds[3] = x +  y - rotation;
 
         normalize(wheelSpeeds);

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -13,6 +14,7 @@ public class Arm {
     DcMotor armMotor;
     Servo leftServo, rightServo;
     TouchSensor touchSensor;
+
     Arm arm;
 
     public Arm(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -20,16 +22,17 @@ public class Arm {
     }
 
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
-        armMotor = hardwareMap.dcMotor.get("am");
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  armMotor = hardwareMap.dcMotor.get("am");
+        //
+        // armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.telemetry = telemetry;
-        leftServo = hardwareMap.servo.get("ls");
-        rightServo = hardwareMap.servo.get("rs");
-        touchSensor = hardwareMap.get(TouchSensor.class, "mls");    }
+      //  leftServo = hardwareMap.servo.get("ls");
+        //rightServo = hardwareMap.servo.get("rs");
+       // touchSensor = hardwareMap.get(TouchSensor.class, "mls");    }
 
 
 
-    public void move(double distance, double power) {
+  /*  public void move(double distance, double power) {
         int target = armMotor.getCurrentPosition() + (int) (distance);
         armMotor.setPower(power);
 
@@ -42,7 +45,7 @@ public class Arm {
             telemetry.update();
         }
         armMotor.setPower(power);
-    }
+    */}/*
 
     public void moveLow() {
         while (!(touchSensor.isPressed())) {
@@ -55,5 +58,5 @@ public class Arm {
         rightServo.setPosition(.3);
     }
 
-
+*/
 }
