@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -14,32 +13,42 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Wheels {
-    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
+    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor, leftEncoder, rightEncoder, centerEncoder;
     Telemetry telemetry;
     ColorSensor colorSensor1, colorSensor2;
+
     //PID pid;
     protected Orientation angles;
     protected BNO055IMU imu;
+
+
+
 
     public Wheels(HardwareMap hardwareMap, Telemetry telemetry) {init(hardwareMap,telemetry);
     }
 
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
+
         rightFrontMotor = hardwareMap.dcMotor.get("rfm");
         rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFrontMotor = hardwareMap.dcMotor.get("lfm");
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftBackMotor = hardwareMap.dcMotor.get("lbm");
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightBackMotor = hardwareMap.dcMotor.get("rbm");
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.telemetry = telemetry;
 
+//        leftEncoder = hardwareMap.dcMotor.get("le");
+//        rightEncoder = hardwareMap.dcMotor.get("re");
+//        centerEncoder = hardwareMap.dcMotor.get("ce");
+
+        //IMU.Parameters parameters = new IMU.Parameters(hardwareMap.i2cDevice);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -84,14 +93,16 @@ public class Wheels {
         rightFrontMotor.setPower(wheelSpeeds[1]);
         leftBackMotor.setPower(wheelSpeeds[2]);
         rightBackMotor.setPower(wheelSpeeds[3]);
+        odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
+
 
     }   //mecanumDrive_Cartesian
 
     protected static final double RADIAN_DRIVE_CALIBRATION = 51.66;
-    protected static final double DRIVE_CALIBRATION = 47.4375;
-    protected static final double CALIBRATION_COUNTS = 2000;
+    protected static final double DRIVE_CALIBRATION = 32.923;
+    protected static final double CALIBRATION_COUNTS = 10000;
     double COUNTS_PER_INCH = CALIBRATION_COUNTS / DRIVE_CALIBRATION;
-    double RADIAN_COUNTS_PER_INCH = CALIBRATION_COUNTS / RADIAN_DRIVE_CALIBRATION;
+    double RADIAN_COUNTS_PER_INCH = 10890.118577 / RADIAN_DRIVE_CALIBRATION;
     public void backwards(double distance, double power) {
 
         backwardsCount(distance*COUNTS_PER_INCH, power);
@@ -99,10 +110,11 @@ public class Wheels {
 
     public void backwardsCount (double distance, double power) {
 
-        int target = rightFrontMotor.getCurrentPosition() + (int)  distance;
+        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
         driveCartesian(0, power, 0);
 
-        while (rightFrontMotor.getCurrentPosition() < target) {
+        while (rightFrontMotor.getCurrentPosition() > target) {
+            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
             telemetry.addLine(String.valueOf(System.currentTimeMillis()));
             telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Backwards");
@@ -118,13 +130,14 @@ public class Wheels {
 
     public void forwardsCounts(double distance, double power) {
 
-        int target = rightFrontMotor.getCurrentPosition() - (int) (distance);
+        int target = rightFrontMotor.getCurrentPosition() + (int) (distance);
         driveCartesian(0, -power, 0);
 
         telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.update();
 
-        while (rightFrontMotor.getCurrentPosition() > target) {
+        while (rightFrontMotor.getCurrentPosition() < target) {
+           // odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
             telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine("Forward");
             telemetry.update();
@@ -141,31 +154,16 @@ public class Wheels {
 
         float heading = getHeading();
 
-        int target = rightFrontMotor.getCurrentPosition() + (int) (Strafe_COUNTS_PER_INCH * distance);
-        driveCartesian(power, 0, 0);
+        int target = rightBackMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
+        driveCartesian(-power, 0, 0);
 
-        telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
         telemetry.addLine("Position " + getHeading());
         telemetry.update();
 
-        while (rightFrontMotor.getCurrentPosition() < target) {
-//            if (getHeading() < heading){
-//                //tweak right
-//                driveCartesian(-power,0 ,0.1);
-//            }
-//            else if (getHeading() > heading) {
-//                //tweak left
-//                driveCartesian(-power,0,-0.1);
-//            }
-//            else {
-//                //continue
-//                driveCartesian(-power,0,0);
-//            }
-
-           // pid(false,0);
-
-
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+        while (rightBackMotor.getCurrentPosition() > target) {
+           odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
+            telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine(" Right");
             telemetry.update();
         }
@@ -178,28 +176,16 @@ public class Wheels {
         float heading = getHeading();
 //        sleep(2000);
 
-        int target = rightFrontMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
-        driveCartesian(-power, 0, 0);
+        int target = rightBackMotor.getCurrentPosition() + (int) (Strafe_COUNTS_PER_INCH * distance);
+        driveCartesian(power, 0, 0);
 
-        telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
         telemetry.addLine("Position " + getHeading());
         telemetry.update();
 
-        while (rightFrontMotor.getCurrentPosition() > target) {
-//            if (getHeading() > heading){
-//                //tweak left
-//                driveCartesian(power,0 ,-0.1);
-//            }
-//            else if (getHeading() < heading) {
-//                //tweak right
-//                driveCartesian(power,0,0.1);
-//            }
-//            else {
-//                //continue
-//                driveCartesian(power,0,0);
-//            }
-//
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+        while (rightBackMotor.getCurrentPosition() < target) {
+            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
+            telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine("Position" + getHeading());
             telemetry.addLine(" Left");
             telemetry.update();
@@ -347,6 +333,51 @@ public class Wheels {
         rightFrontMotor.setPower(array[1]*.75);
         leftBackMotor.setPower(-array[1]*.75);
         rightBackMotor.setPower(-array[0]*.75);
+    }
+
+    double prevLeftPos = 0;
+    double deltaLeft;
+    double prevRightPos = 0;
+    double deltaRight;
+    double prevCenterPos = 0;
+    double deltaCenter;
+    double rotation;
+    double prevRotation = 0;
+    double deltaDis;
+    double deltaPerp;
+    double deltaX;
+    double deltaY;
+    double xPos;
+    double yPos;
+    double[] array = new double[3];
+
+    public double[] odometerChange(double leftPos, double rightPos, double centerPos) {
+        deltaLeft = leftPos - prevLeftPos;
+        deltaRight = rightPos - prevRightPos;
+        deltaCenter = centerPos - prevCenterPos;
+
+        rotation = (deltaLeft - deltaRight) / 8.75;
+        deltaDis = (deltaLeft + deltaRight) / 2;
+        deltaPerp = deltaDis - 7.75 * rotation;
+
+        deltaX = deltaDis * Math.cos(prevRotation) - deltaPerp * Math.sin(prevRotation);
+        deltaY = deltaDis * Math.sin(prevRotation) + deltaPerp * Math.cos(prevRotation);
+
+        xPos += deltaX;
+        yPos += deltaY;
+        prevRotation += rotation;
+
+        prevRightPos = rightPos;
+        prevLeftPos = leftPos;
+        prevCenterPos = centerPos;
+
+        telemetry.addLine("X Pos: " + xPos + "\nY Pos: " + yPos + "\nRotation: " + rotation);
+        telemetry.update();
+
+        array[0] = xPos;
+        array[1] = yPos;
+        array[2] = rotation;
+        return array;
     }
 
 

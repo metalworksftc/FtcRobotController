@@ -33,14 +33,14 @@ public class DriveCartesian2 extends OpMode {
                 wheels.driveCartesian(-gamepad1.left_stick_x * 0.5, gamepad1.left_stick_y * 0.5, gamepad1.right_stick_x * 0.5);
             }
         }
-        telemetry.addLine("ONE");
-        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor1.red()));
-        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor1.green()));
-        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor1.blue()));
-        telemetry.addLine("\nTwo");
-        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor2.red()));
-        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor2.green()));
-        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor2.blue()));
+//        telemetry.addLine("ONE");
+//        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor1.red()));
+//        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor1.green()));
+//        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor1.blue()));
+//        telemetry.addLine("\nTwo");
+//        telemetry.addLine("R:" +String.valueOf(wheels.colorSensor2.red()));
+//        telemetry.addLine("G:" +String.valueOf(wheels.colorSensor2.green()));
+//        telemetry.addLine("B:" +String.valueOf(wheels.colorSensor2.blue()));
 
         initPos = wheels.rightFrontMotor.getCurrentPosition();
     }
