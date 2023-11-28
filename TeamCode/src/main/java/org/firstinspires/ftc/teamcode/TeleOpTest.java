@@ -24,14 +24,14 @@ public class TeleOpTest extends OpMode {
 
     @Override
     public void loop() {
-
-        if (gamepad1.a) {
-            arm.leftServo.setPosition(1);
-            arm.rightServo.setPosition(0);
-        } else if (gamepad1.b) {
-            arm.leftServo.setPosition(0);
-            arm.rightServo.setPosition(1);
-        }
+//
+//        if (gamepad1.a) {
+//            arm.leftServo.setPosition(1);
+//            arm.rightServo.setPosition(0);
+//        } else if (gamepad1.b) {
+//            arm.leftServo.setPosition(0);
+//            arm.rightServo.setPosition(1);
+//        }
 
     }
 }

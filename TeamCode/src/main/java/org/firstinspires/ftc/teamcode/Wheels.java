@@ -1,62 +1,67 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BHI260IMU;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorIMUOrthogonal;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class Wheels {
-    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor, leftEncoder, rightEncoder, centerEncoder;
+    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
     Telemetry telemetry;
     ColorSensor colorSensor1, colorSensor2;
 
-    //PID pid;
+
+    PIDY pid_Y;
+    PIDX pid_X;
     protected Orientation angles;
-    protected BNO055IMU imu;
+    protected BHI260IMU imu;
+
+    static double TOLERANCE;
 
 
-
-
-    public Wheels(HardwareMap hardwareMap, Telemetry telemetry) {init(hardwareMap,telemetry);
+    public Wheels(HardwareMap hardwareMap, Telemetry telemetry) {
+        init(hardwareMap, telemetry);
     }
 
     private void init(HardwareMap hardwareMap, Telemetry telemetry) {
 
         rightFrontMotor = hardwareMap.dcMotor.get("rfm");
         rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFrontMotor = hardwareMap.dcMotor.get("lfm");
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftBackMotor = hardwareMap.dcMotor.get("lbm");
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         rightBackMotor = hardwareMap.dcMotor.get("rbm");
         rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.telemetry = telemetry;
 
-//        leftEncoder = hardwareMap.dcMotor.get("le");
-//        rightEncoder = hardwareMap.dcMotor.get("re");
-//        centerEncoder = hardwareMap.dcMotor.get("ce");
+        pid_Y = new PIDY();
+        pid_X = new PIDX();
 
-        //IMU.Parameters parameters = new IMU.Parameters(hardwareMap.i2cDevice);
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "AdafruitIMUCalibration.json";
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+
+        BHI260IMU.Parameters parameters = new BHI260IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+
+        imu = hardwareMap.get(BHI260IMU.class, "imu");
         imu.initialize(parameters);
+
 
         colorSensor1 = hardwareMap.colorSensor.get("cs1");
         colorSensor2 = hardwareMap.colorSensor.get("cs2");
@@ -79,13 +84,15 @@ public class Wheels {
             }
         }
     }
+
     double wheelSpeeds[] = new double[4];
+
     public void driveCartesian(double x, double y, double rotation) {
 
         wheelSpeeds[0] = x + y + rotation;
         wheelSpeeds[1] = -x + y - rotation;
         wheelSpeeds[2] = -x + y + rotation;
-        wheelSpeeds[3] = x +  y - rotation;
+        wheelSpeeds[3] = x + y - rotation;
 
         normalize(wheelSpeeds);
 
@@ -99,102 +106,95 @@ public class Wheels {
     }   //mecanumDrive_Cartesian
 
     protected static final double RADIAN_DRIVE_CALIBRATION = 51.66;
-    protected static final double DRIVE_CALIBRATION = 32.923;
+    //    protected static final double DRIVE_CALIBRATION = 32.923;
+    protected static final double DRIVE_CALIBRATION = 30.109;
     protected static final double CALIBRATION_COUNTS = 10000;
-    double COUNTS_PER_INCH = CALIBRATION_COUNTS / DRIVE_CALIBRATION;
+    public static double COUNTS_PER_INCH = CALIBRATION_COUNTS / DRIVE_CALIBRATION;
     double RADIAN_COUNTS_PER_INCH = 10890.118577 / RADIAN_DRIVE_CALIBRATION;
+
     public void backwards(double distance, double power) {
 
-        backwardsCount(distance*COUNTS_PER_INCH, power);
+//        backwardsCount(distance*COUNTS_PER_INCH, power);
     }
 
-    public void backwardsCount (double distance, double power) {
-
-        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
-        driveCartesian(0, power, 0);
-
-        while (rightFrontMotor.getCurrentPosition() > target) {
-            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
-            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
-            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
-            telemetry.addLine(" Backwards");
-            telemetry.update();
-        }
-        driveCartesian(0, 0, 0);
+//    public void backwardsCount (double distance, double power) {
+//
+//        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
+//        driveCartesian(0, power, 0);
+//
+//        while (rightFrontMotor.getCurrentPosition() > target) {
+//            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
+//            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+//            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+//            telemetry.addLine(" Backwards");
+//            telemetry.update();
+//        }
+//        driveCartesian(0, 0, 0);
+//
+    public void Y_Movement(double distance) {
+        Y_Counts(distance * COUNTS_PER_INCH);
     }
 
-    public void forwards(double distance, double power) {
-        forwardsCounts(distance*COUNTS_PER_INCH, power);
-
-    }
-
-    public void forwardsCounts(double distance, double power) {
+    public void Y_Counts(double distance) {
+        pid_Y.init(distance);
 
         int target = rightFrontMotor.getCurrentPosition() + (int) (distance);
-        driveCartesian(0, -power, 0);
+
+        double initialPower = pid_Y.calculate(distance, telemetry);
+        driveCartesian(0, initialPower, 0);
 
         telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
         telemetry.update();
 
-        while (rightFrontMotor.getCurrentPosition() < target) {
-           // odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
+
+        double error = distance;
+        TOLERANCE = 150;
+        while (Math.abs(error) > TOLERANCE) {
+            error = rightFrontMotor.getCurrentPosition() - target;
+            double power = pid_Y.calculate(error, telemetry) * 0.5;
             telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
             telemetry.addLine("Forward");
             telemetry.update();
+            driveCartesian(0, power, 0);
         }
+
         driveCartesian(0, 0, 0);
+
+        pid_Y.reset();
     }
 
-    protected static final double Strafe_CALIBRATION = 43.25;
-    protected static final double CALIBRATION_Strafe_COUNTS = 2000;
-    double Strafe_COUNTS_PER_INCH = CALIBRATION_Strafe_COUNTS / Strafe_CALIBRATION;
+        protected static final double Strafe_CALIBRATION = 38.9895958315;
+        protected static final double CALIBRATION_Strafe_COUNTS = 10000;
+        static double Strafe_COUNTS_PER_INCH = CALIBRATION_Strafe_COUNTS / Strafe_CALIBRATION;
 
+    public void X_Movement(double distance) {
+        distance *= Strafe_COUNTS_PER_INCH;
+        pid_X.init(distance);
 
-    public void right(double distance, double power) {
+        int target = leftBackMotor.getCurrentPosition() + (int) (distance);
 
-        float heading = getHeading();
+        double initialPower = pid_X.calculate(distance, telemetry);
+        driveCartesian(initialPower, 0, 0);
 
-        int target = rightBackMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
-        driveCartesian(-power, 0, 0);
-
-        telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
-        telemetry.addLine("Position " + getHeading());
+        telemetry.addLine("Driving:" + leftBackMotor.getCurrentPosition() + " of " + target);
         telemetry.update();
 
-        while (rightBackMotor.getCurrentPosition() > target) {
-           odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
-            telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
-            telemetry.addLine(" Right");
+
+        double error = distance;
+        TOLERANCE = 150;
+        while (Math.abs(error) > TOLERANCE) {
+            error = leftBackMotor.getCurrentPosition() - target;
+            double power = pid_X.calculate(error, telemetry) * 0.5;
+            telemetry.addLine("Driving:" + leftBackMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Forward");
             telemetry.update();
+            driveCartesian(power, 0, 0);
         }
 
         driveCartesian(0, 0, 0);
+
+        pid_X.reset();
     }
-
-    public void left(double distance, double power) {
-
-        float heading = getHeading();
-//        sleep(2000);
-
-        int target = rightBackMotor.getCurrentPosition() + (int) (Strafe_COUNTS_PER_INCH * distance);
-        driveCartesian(power, 0, 0);
-
-        telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
-        telemetry.addLine("Position " + getHeading());
-        telemetry.update();
-
-        while (rightBackMotor.getCurrentPosition() < target) {
-            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
-            telemetry.addLine("Driving: " + rightBackMotor.getCurrentPosition() + " of " + target);
-            telemetry.addLine("Position" + getHeading());
-            telemetry.addLine(" Left");
-            telemetry.update();
-
-        }
-
-        driveCartesian(0, 0, 0);
-    }
-
 
     protected void absoluteTurnPower(float target, double power) {
         //turn left
@@ -209,7 +209,7 @@ public class Wheels {
         if (distLeft < distRight) {
             driveCartesian(0,0,-power);
             //turn left
-            while (distLeft > 2) {
+            while (distLeft > 5) {
                 telemetry.addLine("Turning Left: " + getHeading() + " of " + target);
                 telemetry.update();
                 distLeft = target - getHeading();
@@ -233,9 +233,15 @@ public class Wheels {
        driveCartesian(0,0,0);
     }
 
+    Orientation robotOrientation;
     protected float getHeading() {
-        angles = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
-        return AngleUnit.DEGREES.normalize(angles.firstAngle);
+        robotOrientation = imu.getRobotOrientation(
+                AxesReference.INTRINSIC,
+                AxesOrder.XYZ,
+                AngleUnit.DEGREES
+        );
+        //angles = robotOrientation.firstAngle;;
+        return (float) AngleUnit.DEGREES.normalize((robotOrientation.thirdAngle));
     }
 
     public void sleep(double milliseconds) {
@@ -259,43 +265,6 @@ public class Wheels {
         return 23.75 * blocks + 6;
     }
 
-    public void pid(boolean right, int target) {
-
-        if (getHeading() < target) {
-            telemetry.addLine("Less Than");
-            if (right) {
-
-                rightFrontMotor.setPower(driveSpeed - 0.02);
-                leftBackMotor.setPower(driveSpeed + 0.02);
-                telemetry.addLine("Right");//hi
-            } else {
-                leftFrontMotor.setPower(driveSpeed + 0.02);
-                rightBackMotor.setPower(driveSpeed + 0.02);
-                telemetry.addLine("Left");
-            }
-
-            telemetry.update();
-        } else if (getHeading() > target) {
-            telemetry.addLine("Greater Than");
-            if (right) {
-                //driveCartesion(driveSpeed,0,0.02)
-                leftFrontMotor.setPower(driveSpeed + 0.02);
-                rightBackMotor.setPower(driveSpeed + 0.02);
-                telemetry.addLine("Right");
-            } else {
-                //driveCartesion(driveSpeed,0,-0.02
-                rightFrontMotor.setPower(driveSpeed - 0.02);
-                leftBackMotor.setPower(driveSpeed + 0.02);
-                telemetry.addLine("Left");
-            }
-            telemetry.update();
-        } else {
-            leftFrontMotor.setPower(driveSpeed);
-            rightFrontMotor.setPower(-driveSpeed);
-            leftBackMotor.setPower(driveSpeed);
-            rightBackMotor.setPower(driveSpeed);
-        }
-    }
     double radianWheelSpeeds[] = new double[2];
 
     public void radianMove(double degreeAngle, double distance) {
@@ -350,6 +319,7 @@ public class Wheels {
     double xPos;
     double yPos;
     double[] array = new double[3];
+    double finalAngle = 0;
 
     public double[] odometerChange(double leftPos, double rightPos, double centerPos) {
         deltaLeft = leftPos - prevLeftPos;
@@ -370,9 +340,10 @@ public class Wheels {
         prevRightPos = rightPos;
         prevLeftPos = leftPos;
         prevCenterPos = centerPos;
+        finalAngle += rotation;
 
-        telemetry.addLine("X Pos: " + xPos + "\nY Pos: " + yPos + "\nRotation: " + rotation);
-        telemetry.update();
+//
+//       lemetry.update();
 
         array[0] = xPos;
         array[1] = yPos;
