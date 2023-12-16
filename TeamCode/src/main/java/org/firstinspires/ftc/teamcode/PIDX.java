@@ -4,7 +4,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class PIDX {
 
-    static double KP = 0.15 / Wheels.Strafe_COUNTS_PER_INCH;
+    static double KP = 0.3/ Wheels.Strafe_COUNTS_PER_INCH;
     static double KI = 0;
     static double KD = 0.005;
 

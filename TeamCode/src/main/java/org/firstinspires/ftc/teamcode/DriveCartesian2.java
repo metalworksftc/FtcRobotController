@@ -37,27 +37,51 @@ public class DriveCartesian2 extends OpMode {
                 wheels.driveCartesian(-gamepad1.left_stick_x * 0.5, gamepad1.left_stick_y * 0.5, -gamepad1.right_stick_x * 0.5);
             }
         }
-        if(gamepad1.a && gamepad2.a){
-            arm.liftServo.setPower(-1);
 
+//        if(gamepad1.a && gamepad2.a){
+//            arm.liftServo.setPower(-1);
+//        }
+//        if (arm.limitSwitch.isPressed() && up == false) {
+//            arm.liftServo.setPower(0);
+//            up = arm.liftCounts(1);
+//        }
+
+        if (gamepad1.right_bumper)
+            intake.intakeFlipServo.setPosition(1);
+        else {
+            intake.intakeFlipServo.setPosition(0);
         }
-        if (arm.limitSwitch.isPressed() && up == false) {
+
+
+        if (gamepad1.dpad_up)
+            arm.liftServo.setPower(.75);
+        else if (gamepad1.dpad_down)
+            arm.liftServo.setPower(-.75);
+        else {
             arm.liftServo.setPower(0);
-            up = arm.liftCounts(1);
         }
-//        telemetry.addLine(String.valueOf(arm.limitSwitch.isPressed()));
-//        telemetry.addLine(String.valueOf(arm.liftMotor.getCurrentPosition()));
+
+
         telemetry.addLine(String.valueOf(wheels.getHeading()));
         telemetry.update();
 
-        arm.liftMotor.setPower(gamepad2.left_stick_y);
+        arm.pixelMotor.setPower(gamepad2.left_stick_y * .5);
 
+        intake.intakeMotor.setPower(gamepad2.right_stick_y);
 
         arm.pixelServo.setPosition(gamepad2.left_trigger);
         arm.flipServo.setPosition(gamepad2.right_trigger);
 
         if(gamepad2.y){
             arm.airplaneServo.setPosition(0);
+        }
+
+        if (gamepad2.dpad_up)
+            arm.liftMotor.setPower(-.75);
+         else if (gamepad2.dpad_down)
+            arm.liftMotor.setPower(.75);
+         else {
+            arm.liftMotor.setPower(0);
         }
 
         initPos = wheels.rightFrontMotor.getCurrentPosition();

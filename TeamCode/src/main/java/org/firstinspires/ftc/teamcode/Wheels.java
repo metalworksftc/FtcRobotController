@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorIMUOrthogonal;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -133,6 +134,7 @@ public class Wheels {
 //
     public void Y_Movement(double distance) {
         Y_Counts(distance * COUNTS_PER_INCH);
+        waitSec(.25);
     }
 
     public void Y_Counts(double distance) {
@@ -194,6 +196,7 @@ public class Wheels {
         driveCartesian(0, 0, 0);
 
         pid_X.reset();
+        waitSec(.25);
     }
 
     protected void absoluteTurnPower(float target, double power) {
@@ -207,7 +210,7 @@ public class Wheels {
         telemetry.addLine(String.valueOf("distLeft " + distLeft + "distRight " + distRight));
         telemetry.update();
         if (distLeft < distRight) {
-            driveCartesian(0,0,-power);
+            driveCartesian(0,0,power);
             //turn left
             while (distLeft > 5) {
                 telemetry.addLine("Turning Left: " + getHeading() + " of " + target);
@@ -218,7 +221,7 @@ public class Wheels {
                 }
             }
         } else {
-            driveCartesian(0,0,power);
+            driveCartesian(0,0,-power);
             //turn right
             while (distRight > 2) {
                 telemetry.addLine("Turning Right: " + getHeading() + " of " + target);
@@ -251,7 +254,7 @@ public class Wheels {
             e.printStackTrace();
         }
     }
-    public double driveSpeed = 0.5;
+    public double driveSpeed = 0.25;
     public double turnSpeed = 0.35;
 
     public void reversePower( float xPower, float yPower, float rotation){
@@ -351,5 +354,14 @@ public class Wheels {
         return array;
     }
 
+    protected void waitSec(double seconds) {
+
+        ElapsedTime time = new ElapsedTime();
+        time.startTime();
+
+        while(time.seconds() < seconds ) {
+        }
+
+    }
 
 }

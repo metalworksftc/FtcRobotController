@@ -25,10 +25,10 @@ public class AutoTest extends LinearOpMode {
        // int foundTag = 0;
         //int count = 0;
 
-        wheels.X_Movement(24);
-        wheels.Y_Movement(24);
-        wheels.X_Movement(-24);
-        wheels.Y_Movement(-24);
+        wheels.X_Movement(10);
+        wheels.Y_Movement(10);
+        wheels.X_Movement(-10);
+        wheels.Y_Movement(-10);
 
 
         //while (targetTag != foundTag) {

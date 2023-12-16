@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Arm {
     Telemetry telemetry;
-    DcMotor liftMotor;
+    DcMotor liftMotor, pixelMotor;
     CRServo liftServo;
     TouchSensor limitSwitch;
     Servo pixelServo, airplaneServo, flipServo;
@@ -33,11 +33,13 @@ public class Arm {
 
         liftMotor = hardwareMap.dcMotor.get("lm");
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        pixelMotor = hardwareMap.dcMotor.get("pm");
         
         limitSwitch = hardwareMap.touchSensor.get("mls");
 
         this.telemetry = telemetry;
-        
+        //pixelMotor = hardwareMap.dcMotor.get("pm");
         
         }
 

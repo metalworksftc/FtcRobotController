@@ -4,9 +4,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class PIDY {
 
-    static double KP = 0.135 / Wheels.COUNTS_PER_INCH;
+    static double KP = 0.3 / Wheels.COUNTS_PER_INCH;
     static double KI = 0;
-    static double KD = 0.015;
+    static double KD = 0;
 
     double previous_error;
     double previous_time;
