@@ -18,24 +18,28 @@ public class AutoTest extends LinearOpMode {
        //aprilTag = new AprilTagAuto(hardwareMap,telemetry);
 
         //aprilTag.initAprilTag(hardwareMap);
-        arm.pixelServo.setPosition(0);
+        arm.pixelServo.setPosition(0.1);
         waitForStart();
 
      //   int targetTag = 1;
        // int foundTag = 0;
         //int count = 0;
 
-        wheels.X_Movement(10);
-        wheels.Y_Movement(10);
-        wheels.X_Movement(-10);
-        wheels.Y_Movement(-10);
+        //wheels.left(20, wheels.driveSpeed);
+//        double n = 0.1;
+//        while (n <= 1) {
+//            arm.pixelServo.setPosition(-.9);
+//            n+= .01;
+//        }
+//
+//
+//
+//        wheels.waitSec(1);
 
 
-        //while (targetTag != foundTag) {
-         //   foundTag = aprilTag.findTag(telemetry);
-       // }
 
-        //arm.liftCounts(1);
+        wheels.absoluteTurnPower(-90, .25);
+
 
 
     }

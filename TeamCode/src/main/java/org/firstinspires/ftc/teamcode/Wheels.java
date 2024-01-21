@@ -114,24 +114,79 @@ public class Wheels {
     double RADIAN_COUNTS_PER_INCH = 10890.118577 / RADIAN_DRIVE_CALIBRATION;
 
     public void backwards(double distance, double power) {
-
-//        backwardsCount(distance*COUNTS_PER_INCH, power);
+        backwardsCount(distance*COUNTS_PER_INCH, power);
     }
 
-//    public void backwardsCount (double distance, double power) {
-//
-//        int target = rightFrontMotor.getCurrentPosition() - (int)  distance;
-//        driveCartesian(0, power, 0);
-//
-//        while (rightFrontMotor.getCurrentPosition() > target) {
-//            odometerChange(leftFrontMotor.getCurrentPosition(), rightFrontMotor.getCurrentPosition(), leftBackMotor.getCurrentPosition());
-//            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
-//            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
-//            telemetry.addLine(" Backwards");
-//            telemetry.update();
-//        }
-//        driveCartesian(0, 0, 0);
-//
+    public void backwardsCount (double distance, double power) {
+
+        int target = rightFrontMotor.getCurrentPosition() - (int) distance;
+        driveCartesian(0, power, 0);
+
+        while (rightFrontMotor.getCurrentPosition() > target) {
+            telemetry.addLine(String.valueOf(System.currentTimeMillis()));
+            telemetry.addLine("Driving: " + rightFrontMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine(" Backwards");
+            telemetry.update();
+        }
+        driveCartesian(0, 0, 0);
+        waitSec(.25);
+    }
+
+
+    public void forwards(double distance, double power) {
+        forwardsCounts(distance*COUNTS_PER_INCH, power);
+    }
+
+    public void forwardsCounts(double distance, double power) {
+        int target = rightFrontMotor.getCurrentPosition() + (int) (distance);
+        driveCartesian(0, -power, 0);
+
+        telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
+        telemetry.update();;
+        while (rightFrontMotor.getCurrentPosition() < target) {
+            telemetry.addLine("Driving:" + rightFrontMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Forward");
+            telemetry.update();
+        }
+        driveCartesian(0, 0, 0);
+        waitSec(.25);
+    }
+
+    public void right(double distance, double power) {
+        float heading = getHeading();
+        int target = leftBackMotor.getCurrentPosition() +  (int) (Strafe_COUNTS_PER_INCH * distance);
+        driveCartesian(-power, 0, 0);
+        telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Position " + getHeading());
+        telemetry.update();
+        while (leftBackMotor.getCurrentPosition() < target) {
+            telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine(" Right");
+            telemetry.update();
+        }
+        driveCartesian(0, 0, 0);
+        waitSec(.25);
+    }
+
+    public void left(double distance, double power) {
+        float heading = getHeading();
+//        sleep(2000);
+        int target = leftBackMotor.getCurrentPosition() - (int) (Strafe_COUNTS_PER_INCH * distance);
+        driveCartesian(power, 0, 0);
+        telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+        telemetry.addLine("Position " + getHeading());
+        telemetry.update();
+        while (leftBackMotor.getCurrentPosition() > target) {
+            telemetry.addLine("Driving: " + leftBackMotor.getCurrentPosition() + " of " + target);
+            telemetry.addLine("Position" + getHeading());
+            telemetry.addLine(" Left");
+            telemetry.update();
+        }
+        driveCartesian(0, 0, 0);
+        waitSec(.25);
+    }
+
+
     public void Y_Movement(double distance) {
         Y_Counts(distance * COUNTS_PER_INCH);
         waitSec(.25);
@@ -165,8 +220,8 @@ public class Wheels {
         pid_Y.reset();
     }
 
-        protected static final double Strafe_CALIBRATION = 38.9895958315;
-        protected static final double CALIBRATION_Strafe_COUNTS = 10000;
+        protected static final double Strafe_CALIBRATION = 48;
+        protected static final double CALIBRATION_Strafe_COUNTS = 20000;
         static double Strafe_COUNTS_PER_INCH = CALIBRATION_Strafe_COUNTS / Strafe_CALIBRATION;
 
     public void X_Movement(double distance) {
@@ -234,6 +289,7 @@ public class Wheels {
             }
         }
        driveCartesian(0,0,0);
+        waitSec(.25);
     }
 
     Orientation robotOrientation;
@@ -254,7 +310,7 @@ public class Wheels {
             e.printStackTrace();
         }
     }
-    public double driveSpeed = 0.25;
+    public double driveSpeed = 0.5;
     public double turnSpeed = 0.35;
 
     public void reversePower( float xPower, float yPower, float rotation){

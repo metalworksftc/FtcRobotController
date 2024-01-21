@@ -46,26 +46,27 @@ public class DriveCartesian2 extends OpMode {
 //            up = arm.liftCounts(1);
 //        }
 
-        if (gamepad1.right_bumper)
+        if (gamepad1.y)
             intake.intakeFlipServo.setPosition(1);
         else {
-            intake.intakeFlipServo.setPosition(0);
+            intake.intakeFlipServo.setPosition(.5);
         }
 
 
         if (gamepad1.dpad_up)
-            arm.liftServo.setPower(.75);
-        else if (gamepad1.dpad_down)
             arm.liftServo.setPower(-.75);
+        else if (gamepad1.dpad_down)
+            arm.liftServo.setPower(.75);
         else {
             arm.liftServo.setPower(0);
         }
 
 
-        telemetry.addLine(String.valueOf(wheels.getHeading()));
+//        telemetry.addLine(String.valueOf(wheels.getHeading()));
+        telemetry.addLine("CS1 " + String.valueOf(wheels.colorSensor1.blue()) + "\n CS2 " + String.valueOf(wheels.colorSensor2.blue()));
         telemetry.update();
 
-        arm.pixelMotor.setPower(gamepad2.left_stick_y * .5);
+        arm.pixelMotor.setPower(gamepad2.left_stick_y * .75);
 
         intake.intakeMotor.setPower(gamepad2.right_stick_y);
 
